@@ -1,0 +1,23 @@
+{
+  "name": "bug-tracker-client",
+  "version": "1.0.0",
+  "description": "Client for bug tracking app.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JKijak8/bug-tracker-client.git"
+  },
+  "author": "Jakub Kijak & Patryk Barański",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JKijak8/bug-tracker-client/issues"
+  },
+  "homepage": "https://github.com/JKijak8/bug-tracker-client#readme",
+  "devDependencies": {
+    "electron": "^39.2.7"
+  }
+}
