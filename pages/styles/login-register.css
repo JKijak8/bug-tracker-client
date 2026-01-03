@@ -1,0 +1,110 @@
+:root {
+  --background-color: #1a1b26;
+  --text-color: #a9b1d6;
+  --button-color: #4d96f7;
+  --text-color-button: white;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url(./fonts/Roboto/Roboto-VariableFont_wdth\wght.ttf) format("tff");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(8px + 2vh);
+}
+
+label {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.text-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.text-input > input {
+  width: 300px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 8px;
+  font-size: 17px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.checkbox > input {
+  --checkbox-size: 15px;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  accent-color: var(--text-color);
+}
+
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: solid 2px var(--button-color);
+  outline-offset: -3px;
+}
+
+.checkbox > * {
+  cursor: pointer;
+}
+
+button {
+  color: var(--text-color-button);
+  background-color: #4d96f7;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 30px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.subtext {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+a:link,
+a:visited {
+  color: var(--text-color);
+}
+
+button:hover {
+  filter: brightness(90%);
+}
+
+button:active {
+  filter: brightness(70%);
+}
