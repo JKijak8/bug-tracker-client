@@ -1,21 +1,37 @@
-const { app, BrowserWindow } = require("electron/main");
+import { app, BrowserWindow, session, ipcMain } from "electron/main";
+import { registerAuthIpc } from "./auth/authIpc.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import Store from "electron-store";
 
-const createWindow = () => {
+const store = new Store();
+
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+function createWindow() {
+  const remember = store.get("rememberMe", false);
+
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    webPreferences: {
+      preload: path.join(dirname, "preload.js"),
+      contextIsolation: true,
+      nodeIntegration: false,
+      session: session.defaultSession,
+    },
   });
 
-  win.loadFile("./pages/login.html");
-};
+  win.loadFile(remember ? "./pages/placeholder.html" : "./pages/login.html");
+}
 
 app.whenReady().then(() => {
+  registerAuthIpc();
   createWindow();
 
   app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
 

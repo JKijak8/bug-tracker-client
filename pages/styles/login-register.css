@@ -3,6 +3,7 @@
   --text-color: #a9b1d6;
   --button-color: #4d96f7;
   --text-color-button: white;
+  --invalid-color: #c92d2b;
 }
 
 @font-face {
@@ -91,6 +92,10 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  background-color: #929e98;
+}
+
 .subtext {
   font-weight: 400;
   font-size: 12px;
@@ -107,4 +112,13 @@ button:hover {
 
 button:active {
   filter: brightness(70%);
+}
+
+.invalid {
+  outline: solid 2px var(--invalid-color);
+  outline-offset: -3px;
+}
+
+#error-display {
+  color: var(--invalid-color);
 }

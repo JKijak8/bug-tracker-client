@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link rel="stylesheet" href="./styles/login-register.css" />
+    <script src="./scripts/login.js" defer></script>
   </head>
   <body>
-    <form>
+    <form id="login-form">
       <div class="text-input">
         <label for="email">Email</label>
         <input type="email" id="email" />
@@ -24,6 +25,7 @@
       <span class="subtext">
         Don't have an account? <a href="./register.html">Register</a>
       </span>
+      <span id="error-display"></span>
     </form>
   </body>
 </html>
