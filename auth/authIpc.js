@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { getRememberMe, setRememberMe } from "./tokenService.js";
+import { getRememberMe, setRememberMe } from "./rememberMeService.js";
 
 export function registerAuthIpc() {
   ipcMain.handle("auth:getRememberMe", () => getRememberMe());
