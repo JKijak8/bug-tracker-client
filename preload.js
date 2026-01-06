@@ -41,14 +41,20 @@ contextBridge.exposeInMainWorld("auth", {
   },
 
   async login(email, password) {
-    const response = await fetch(`${AUTH_URL}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ email, password }),
-    });
+    let response;
+    try {
+      response = await fetch(`${AUTH_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
+      });
+    } catch (err) {
+      return { success: false, message: "Connection error." };
+    }
 
-    if (!response.ok) return { success: false, message: "Login failed." };
+    if (!response.ok)
+      return { success: false, message: "Invalid credentials." };
 
     const data = await response.json();
     accessToken = `Bearer ${data.token}`;
