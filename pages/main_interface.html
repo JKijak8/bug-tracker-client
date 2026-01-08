@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bug Tracker — Main Interface</title>
+
+  <link rel="stylesheet" href="./styles/login-register.css">
+  <link rel="stylesheet" href="./styles/main_interface.css">
+  
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <nav>
+        <div class="nav-item">Navigation</div>
+      </nav>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar" role="banner">
+        <div class="top-left"></div>
+
+        <div class="top-center">
+          <select id="teamDropdown" class="team-dropdown" aria-label="Select team">
+            <option value="">All teams</option>
+            <!-- JS will populate team options here -->
+          </select>
+        </div>
+
+        <div class="top-right">
+          <button id="logoutBtn" class="btn">Logout</button>
+        </div>
+      </header>
+      <div class="table-header-card" role="presentation" aria-hidden="true">
+        <div class="header-cell">Bug Title</div>
+        <div class="header-cell">Commit Link</div>
+        <div class="header-cell">Status</div>
+        <div class="header-cell header-right">Team</div>
+      </div>
+
+      <main class="container content-area" role="main">
+        <table class="bugs-table" role="table" aria-label="Bugs list">
+          <thead class="visually-hidden">
+            <tr>
+              <th>Bug Title</th>
+              <th>Commit</th>
+              <th>Status</th>
+              <th>Team</th>
+            </tr>
+          </thead>
+
+          <tbody id="bugsBody">
+            <tr>
+              <td class="title-cell">Crash when opening settings</td>
+              <td class="commit-cell">
+                <a class="commit-link" href="https://github.com/org/repo/commit/abcdef" target="_blank" rel="noopener noreferrer">abcdef</a>
+              </td>
+              <td class="status-cell"><span class="status-badge status-open">Open</span></td>
+              <td class="team-cell">Frontend</td>
+            </tr>
+
+            <tr>
+              <td class="title-cell">UI overlap on small screens</td>
+              <td class="commit-cell">
+                <a class="commit-link" href="https://github.com/org/repo/commit/123456" target="_blank" rel="noopener noreferrer">123456</a>
+              </td>
+              <td class="status-cell"><span class="status-badge status-in-progress">In Progress</span></td>
+              <td class="team-cell">UI/UX</td>
+            </tr>
+
+            <tr>
+              <td class="title-cell">Typo in welcome message</td>
+              <td class="commit-cell">
+                <a class="commit-link" href="https://github.com/org/repo/commit/987654" target="_blank" rel="noopener noreferrer">987654</a>
+              </td>
+              <td class="status-cell"><span class="status-badge status-resolved">Resolved</span></td>
+              <td class="team-cell">Docs</td>
+            </tr>
+
+            <!-- JS will replace or append rows dynamically -->
+          </tbody>
+        </table>
+
+        <div class="pagination" id="paginationWrap" aria-label="Pagination">
+          <button id="prevBtn" class="btn" aria-label="Previous page">&lt; Prev</button>
+          <span id="pageInfo" class="page-info" aria-live="polite">Page 1</span>
+          <button id="nextBtn" class="btn" aria-label="Next page">Next &gt;</button>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
