@@ -5,11 +5,67 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const repeatPassword = document.getElementById("repeat-password");
 
-document.addEventListener("input", () => {});
+document.addEventListener("input", (e) => {
+  switch (e.target) {
+    case username: {
+      const response = validateUsername(username.value);
+      handleSingleResponse(username, response);
+      break;
+    }
+    case email: {
+      const response = validateEmail(email.value);
+      handleSingleResponse(email, response);
+      break;
+    }
+    case password: {
+      const response = validatePassword(password.value);
+      if (repeatPassword.value.length > 0) {
+        const responseRepeat = validateRepeatPassword(
+          password.value,
+          repeatPassword.value
+        );
+        handleSingleResponse(repeatPassword, responseRepeat);
+      }
+      handleSingleResponse(password, response);
+      break;
+    }
+    case repeatPassword: {
+      const response = validateRepeatPassword(
+        password.value,
+        repeatPassword.value
+      );
+      handleSingleResponse(repeatPassword, response);
+      break;
+    }
+  }
+});
 
 document.addEventListener("submit", (e) => {
   e.preventDefault();
+  validateAll();
 });
+
+function validateAll() {
+  resetErrors();
+
+  const responses = [
+    { input: username, response: validateUsername(username.value) },
+    { input: email, response: validateEmail(email.value) },
+    { input: password, response: validatePassword(password.value) },
+    {
+      input: repeatPassword,
+      response: validateRepeatPassword(password.value, repeatPassword.value),
+    },
+  ];
+
+  for (const res of responses) {
+    if (!res.response.ok) {
+      res.input.classList.add("invalid");
+      const error = res.input.parentElement.querySelector(".error");
+      error.textContent = res.response.message;
+    }
+  }
+}
 
 function validateUsername(username) {
   if (username.length === 0) {
@@ -73,8 +129,38 @@ function validatePassword(password) {
  * @param {String} repeatPassword
  */
 function validateRepeatPassword(password, repeatPassword) {
+  if (password.length === 0) {
+    return { ok: false, message: "" };
+  }
   if (password !== repeatPassword) {
     return { ok: false, message: "Passwords do not match." };
   }
   return { ok: true };
+}
+
+function handleSingleResponse(input, res) {
+  if (!res.ok) {
+    input.classList.add("invalid");
+    input.parentElement.querySelector(".error").textContent = res.message;
+    return;
+  }
+  resetSingleError(input);
+}
+
+function resetSingleError(input) {
+  input.className = "";
+  input.parentElement.querySelector(".error").textContent = "";
+}
+
+function resetErrors() {
+  let inputs = document.querySelectorAll(".invalid");
+  let errors = document.querySelectorAll(".error");
+
+  inputs.forEach((input) => {
+    input.className = "";
+  });
+
+  errors.forEach((error) => {
+    error.textContent = "";
+  });
 }
