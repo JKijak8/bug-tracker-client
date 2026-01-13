@@ -128,3 +128,8 @@ button:active {
   font-size: 12px;
   font-weight: 600;
 }
+
+#message {
+  font-size: 14px;
+  font-weight: 600;
+}

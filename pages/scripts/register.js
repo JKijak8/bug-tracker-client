@@ -40,13 +40,51 @@ document.addEventListener("input", (e) => {
   }
 });
 
-document.addEventListener("submit", (e) => {
+document.addEventListener("submit", async (e) => {
   e.preventDefault();
-  validateAll();
+
+  const registerUrl = "https://localhost:8443/user";
+  const message = document.getElementById("message");
+  const button = document.getElementById("register");
+
+  message.className = "";
+  button.disabled = true;
+
+  message.textContent = "";
+  if (!validateAll()) return;
+
+  let response;
+  try {
+    response = await fetch(registerUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username.value,
+        email: email.value,
+        password: password.value,
+      }),
+    });
+  } catch {
+    message.textContent = "Server error.";
+  }
+
+  switch (response.status) {
+    case 201:
+      message.textContent = "You have been registered successfully.";
+      break;
+    case 409:
+      message.textContent = "A user with these credentials already exists.";
+      message.classList.add("error");
+      break;
+  }
+
+  button.disabled = false;
 });
 
 function validateAll() {
   resetErrors();
+
+  let valid = true;
 
   const responses = [
     { input: username, response: validateUsername(username.value) },
@@ -63,8 +101,10 @@ function validateAll() {
       res.input.classList.add("invalid");
       const error = res.input.parentElement.querySelector(".error");
       error.textContent = res.response.message;
+      valid = false;
     }
   }
+  return valid;
 }
 
 function validateUsername(username) {
