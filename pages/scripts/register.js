@@ -46,3 +46,23 @@ function validateEmail(email) {
 
   return { ok: true };
 }
+
+/**
+ *
+ * @param {String} password
+ */
+function validatePassword(password) {
+  if (password.length === 0) {
+    return { ok: false, message: "Password is required." };
+  }
+
+  if (password.length < 6) {
+    return { ok: false, message: "Password must be at least 6 characters." };
+  }
+
+  if (password.length > 255) {
+    return { ok: false, message: "Password must be at most 255 characters." };
+  }
+
+  return { ok: true };
+}
