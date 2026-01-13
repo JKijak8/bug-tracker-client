@@ -66,3 +66,15 @@ function validatePassword(password) {
 
   return { ok: true };
 }
+
+/**
+ *
+ * @param {String} password
+ * @param {String} repeatPassword
+ */
+function validateRepeatPassword(password, repeatPassword) {
+  if (password !== repeatPassword) {
+    return { ok: false, message: "Passwords do not match." };
+  }
+  return { ok: true };
+}
