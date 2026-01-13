@@ -122,3 +122,9 @@ button:active {
 #error-display {
   color: var(--invalid-color);
 }
+
+.error {
+  color: var(--invalid-color);
+  font-size: 12px;
+  font-weight: 600;
+}
