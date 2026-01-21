@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link rel="stylesheet" href="./styles/login-register.css" />
-    <script src="./scripts/login.js" defer></script>
+    <script type="module" src="./scripts/login.js" defer></script>
   </head>
   <body>
     <form id="login-form">
@@ -27,5 +27,8 @@
       </span>
       <span id="error-display"></span>
     </form>
+    <div id="loading-overlay">
+      <div id="loader"></div>
+    </div>
   </body>
 </html>

@@ -10,8 +10,6 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 function createWindow() {
-  const remember = store.get("rememberMe", false);
-
   const win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -23,7 +21,7 @@ function createWindow() {
     },
   });
 
-  win.loadFile(remember ? "./pages/placeholder.html" : "./pages/login.html");
+  win.loadFile("./pages/login.html");
 }
 
 app.whenReady().then(() => {

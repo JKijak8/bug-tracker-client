@@ -1,5 +1,12 @@
 const login = document.getElementById("login-form");
 const checkbox = document.getElementById("remember-me");
+const loadingOverlay = document.getElementById("loading-overlay");
+
+(async () => {
+  if (await window.auth.getRememberMe()) {
+    await loading();
+  }
+})();
 
 login.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -25,7 +32,25 @@ login.addEventListener("submit", async (e) => {
   }
 
   window.auth.setRememberMe(checkbox.checked);
-  window.location.href = "./placeholder.html";
+  await loading();
 
   button.disabled = false;
 });
+
+async function loading() {
+  const nextPage = "./placeholder.html";
+  loadingOverlay.style.display = "flex";
+
+  if (await checkLogin()) {
+    window.location.href = nextPage;
+  }
+  loadingOverlay.style.display = "none";
+}
+
+async function checkLogin() {
+  const token = await window.auth.getAccessToken();
+  if (!token.success) {
+    return false;
+  }
+  return true;
+}
