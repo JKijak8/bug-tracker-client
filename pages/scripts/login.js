@@ -42,7 +42,7 @@ async function loading() {
   loadingOverlay.style.display = "flex";
 
   if (await checkLogin()) {
-    window.location.href = nextPage;
+    window.location.replace(nextPage);
   }
   loadingOverlay.style.display = "none";
 }
