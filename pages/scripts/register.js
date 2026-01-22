@@ -48,22 +48,21 @@ document.addEventListener("submit", async (e) => {
   const message = document.getElementById("message");
   const button = document.getElementById("register");
 
+  const validations = [
+    createValidation(username, validateUsername),
+    createValidation(email, validateEmail),
+    createValidation(password, validatePassword),
+    createRepeatPasswordValidation(
+      password,
+      repeatPassword,
+      validateRepeatPassword,
+    ),
+  ];
   message.className = "";
   button.disabled = true;
 
   message.textContent = "";
-  if (
-    !validate([
-      createValidation(username, validateUsername),
-      createValidation(email, validateEmail),
-      createValidation(password, validatePassword),
-      createRepeatPasswordValidation(
-        password,
-        repeatPassword,
-        validateRepeatPassword,
-      ),
-    ])
-  ) {
+  if (!validate(validations)) {
     button.disabled = false;
     return;
   }
@@ -86,6 +85,7 @@ document.addEventListener("submit", async (e) => {
   switch (response.status) {
     case 201:
       message.textContent = "You have been registered successfully.";
+      validations.forEach((val) => (val.input.value = ""));
       break;
     case 409:
       message.textContent = "A user with these credentials already exists.";
