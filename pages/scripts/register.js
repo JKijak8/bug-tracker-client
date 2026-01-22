@@ -8,33 +8,34 @@ const repeatPassword = document.getElementById("repeat-password");
 document.addEventListener("input", (e) => {
   switch (e.target) {
     case username: {
-      const response = validateUsername(username.value);
-      handleSingleResponse(username, response);
+      validate([createValidation(username, validateUsername)]);
       break;
     }
     case email: {
-      const response = validateEmail(email.value);
-      handleSingleResponse(email, response);
+      validate([createValidation(email, validateEmail)]);
       break;
     }
     case password: {
-      const response = validatePassword(password.value);
       if (repeatPassword.value.length > 0) {
-        const responseRepeat = validateRepeatPassword(
-          password.value,
-          repeatPassword.value
-        );
-        handleSingleResponse(repeatPassword, responseRepeat);
+        validate([
+          createRepeatPasswordValidation(
+            password,
+            repeatPassword,
+            validateRepeatPassword,
+          ),
+        ]);
       }
-      handleSingleResponse(password, response);
+      validate([createValidation(password, validatePassword)]);
       break;
     }
     case repeatPassword: {
-      const response = validateRepeatPassword(
-        password.value,
-        repeatPassword.value
-      );
-      handleSingleResponse(repeatPassword, response);
+      validate([
+        createRepeatPasswordValidation(
+          password,
+          repeatPassword,
+          validateRepeatPassword,
+        ),
+      ]);
       break;
     }
   }
@@ -51,7 +52,21 @@ document.addEventListener("submit", async (e) => {
   button.disabled = true;
 
   message.textContent = "";
-  if (!validateAll()) return;
+  if (
+    !validate([
+      createValidation(username, validateUsername),
+      createValidation(email, validateEmail),
+      createValidation(password, validatePassword),
+      createRepeatPasswordValidation(
+        password,
+        repeatPassword,
+        validateRepeatPassword,
+      ),
+    ])
+  ) {
+    button.disabled = false;
+    return;
+  }
 
   let response;
   try {
@@ -81,30 +96,44 @@ document.addEventListener("submit", async (e) => {
   button.disabled = false;
 });
 
-function validateAll() {
-  resetErrors();
+function validate(validations) {
+  resetErrors(validations);
 
   let valid = true;
 
-  const responses = [
-    { input: username, response: validateUsername(username.value) },
-    { input: email, response: validateEmail(email.value) },
-    { input: password, response: validatePassword(password.value) },
-    {
-      input: repeatPassword,
-      response: validateRepeatPassword(password.value, repeatPassword.value),
-    },
-  ];
-
-  for (const res of responses) {
-    if (!res.response.ok) {
-      res.input.classList.add("invalid");
-      const error = res.input.parentElement.querySelector(".error");
-      error.textContent = res.response.message;
+  for (const validation of validations) {
+    if (!validation.response.ok) {
+      validation.input.classList.add("invalid");
+      const error = validation.input.parentElement.querySelector(".error");
+      error.textContent = validation.response.message;
       valid = false;
     }
   }
+
   return valid;
+}
+
+function resetErrors(validations) {
+  validations.forEach((validation) => {
+    validation.input.className = "";
+    let error = validation.input.parentElement.querySelector(".error");
+    error.textContent = "";
+  });
+}
+
+function createValidation(input, validationFunction) {
+  return { input, response: validationFunction(input.value) };
+}
+
+function createRepeatPasswordValidation(
+  passwordInput,
+  repeatInput,
+  validationFunction,
+) {
+  return {
+    input: repeatInput,
+    response: validationFunction(passwordInput.value, repeatInput.value),
+  };
 }
 
 function validateUsername(username) {
@@ -130,7 +159,7 @@ function validateEmail(email) {
 
   if (
     !email.match(
-      /(?:[a-z0-9!#$%&'*+\x2f=?^_`\x7b-\x7d~\x2d]+(?:\.[a-z0-9!#$%&'*+\x2f=?^_`\x7b-\x7d~\x2d]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9\x2d]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9\x2d]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9\x2d]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+      /(?:[a-z0-9!#$%&'*+\x2f=?^_`\x7b-\x7d~\x2d]+(?:\.[a-z0-9!#$%&'*+\x2f=?^_`\x7b-\x7d~\x2d]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9\x2d]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9\x2d]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9\x2d]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
     )
   ) {
     return { ok: false, message: "Email is invalid." };
@@ -176,31 +205,4 @@ function validateRepeatPassword(password, repeatPassword) {
     return { ok: false, message: "Passwords do not match." };
   }
   return { ok: true };
-}
-
-function handleSingleResponse(input, res) {
-  if (!res.ok) {
-    input.classList.add("invalid");
-    input.parentElement.querySelector(".error").textContent = res.message;
-    return;
-  }
-  resetSingleError(input);
-}
-
-function resetSingleError(input) {
-  input.className = "";
-  input.parentElement.querySelector(".error").textContent = "";
-}
-
-function resetErrors() {
-  let inputs = document.querySelectorAll(".invalid");
-  let errors = document.querySelectorAll(".error");
-
-  inputs.forEach((input) => {
-    input.className = "";
-  });
-
-  errors.forEach((error) => {
-    error.textContent = "";
-  });
 }
