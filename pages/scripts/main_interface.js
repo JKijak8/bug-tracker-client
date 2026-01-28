@@ -41,7 +41,7 @@ async function loadUserInfo() {
             dom.userDisplay.textContent = data.username;
         }
     } catch (e) {
-        console.error("Retrieving user failed", e);
+        console.error("User fetch error", e);
     }
 }
 
