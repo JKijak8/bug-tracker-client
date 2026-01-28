@@ -109,4 +109,36 @@ function closeModal() {
 
 async function handleFormSubmit(e) {
     e.preventDefault();
+
+    const bugId = dom.bugIdField.value;
+    const isEdit = !!bugId;
+
+    const payload = {
+        team: parseInt(dom.bugTeam.value),
+        title: dom.bugTitle.value,
+        description: dom.bugDesc.value,
+        priority: dom.bugPriority.value,
+        resolved: dom.bugResolved.checked,
+        creator: state.currentUserId
+    };
+
+    let url = `${API_URL}/bug`;
+    let method = 'POST';
+
+    if (isEdit) {
+        url += `?bugId=${bugId}`; // BugController: updateBug(@RequestParam Long bugId...)
+        method = 'PUT';
+    }
+
+    const result = await authenticatedFetch(url, {
+        method: method,
+        body: JSON.stringify(payload)
+    });
+
+    if (result) {
+        closeModal();
+        loadBugs(); // refreshing the table
+    } else {
+        alert("Failed to save bug. Check console.");
+    }
 }
