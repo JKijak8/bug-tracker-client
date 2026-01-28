@@ -102,3 +102,7 @@ function openModal(mode, bugData = null) {
         dom.bugResolved.checked = bugData.resolved;
     }
 }
+
+function closeModal() {
+    dom.modal.classList.remove('active');
+}
