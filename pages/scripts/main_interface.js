@@ -33,3 +33,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     setupEventListeners();
 });
+
+async function loadUserInfo() {
+    try {
+        const data = await authenticatedFetch(`${API_URL}/user`);
+        if (data) {
+            dom.userDisplay.textContent = data.username;
+        }
+    } catch (e) {
+        console.error("Retrieving user failed", e);
+    }
+}
