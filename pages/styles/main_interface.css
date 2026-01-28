@@ -127,6 +127,14 @@ html, body {
   cursor: pointer;
 }
 
+#editBugBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+
+
 .commit-link { color: var(--button-color); text-decoration:none; font-family: monospace; }
 .commit-link:hover { text-decoration: underline; }
 
