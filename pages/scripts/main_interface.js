@@ -188,3 +188,11 @@ function selectRow(row, bug) {
     selectedBugData = bug; // store all bug data for editing
     dom.editBtn.disabled = false;
 }
+
+function deselectRow() {
+    state.selectedBugId = null;
+    selectedBugData = null;
+    dom.editBtn.disabled = true;
+    const prevSelected = dom.tableBody.querySelector('.selected-row');
+    if (prevSelected) prevSelected.classList.remove('selected-row');
+}
