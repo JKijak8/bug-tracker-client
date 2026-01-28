@@ -1,88 +1,115 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Bug Tracker — Main</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Bug Tracker — Main</title>
 
-  <!-- Optional theme (keeps consistency). If missing, fallback variables will apply. -->
-  <link rel="stylesheet" href="./styles/login-register.css">
+    <!-- Optional theme (keeps consistency). If missing, fallback variables will apply. -->
+    <link rel="stylesheet" href="./styles/form.css" />
 
-  <link rel="stylesheet" href="./styles/main_interface.css">
-</head>
-<body>
-  <div class="app-layout">
-    <aside class="sidebar" aria-label="Primary navigation">
-      <div class="nav-top">Navigation</div>
-      <nav class="nav-links" aria-label="Sidebar links">
-        <a class="nav-link" href="#">Dashboard</a>
-        <a class="nav-link" href="#">Projects</a>
-        <a class="nav-link" href="#">Teams</a>
-        <a class="nav-link" href="#">Settings</a>
-      </nav>
-    </aside>
+    <link rel="stylesheet" href="./styles/main_interface.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="nav-top">Navigation</div>
+        <nav class="nav-links" aria-label="Sidebar links">
+          <a class="nav-link" href="#">Dashboard</a>
+          <a class="nav-link" href="#">Projects</a>
+          <a class="nav-link" href="#">Teams</a>
+          <a class="nav-link" href="#">Settings</a>
+        </nav>
+      </aside>
 
-    <div class="main-area">
-      <header class="topbar" role="banner">
-        <div class="top-left"></div>
+      <div class="main-area">
+        <header class="topbar" role="banner">
+          <div class="top-left"></div>
 
-        <div class="top-center">
-          <select id="teamDropdown" class="team-dropdown" aria-label="Select team">
-            <option value="">All teams</option>
-          </select>
+          <div class="top-center">
+            <select
+              id="teamDropdown"
+              class="team-dropdown"
+              aria-label="Select team"
+            >
+              <option value="">All teams</option>
+            </select>
+          </div>
+
+          <div class="top-right">
+            <button id="logoutBtn" class="btn logout-btn">Logout</button>
+          </div>
+        </header>
+        <div class="spacer"></div>
+
+        <div class="table-header-card" role="presentation" aria-hidden="true">
+          <div class="header-cell">Bug Title</div>
+          <div class="header-cell">Commit</div>
+          <div class="header-cell">Status</div>
+          <div class="header-cell header-right">Team</div>
         </div>
 
-        <div class="top-right">
-          <button id="logoutBtn" class="btn logout-btn">Logout</button>
-        </div>
-      </header>
-      <div class="spacer"></div>
+        <main class="container content-area" role="main">
+          <table class="bugs-table" role="table" aria-label="Bugs list">
+            <thead class="visually-hidden">
+              <tr>
+                <th>Bug Title</th>
+                <th>Commit</th>
+                <th>Status</th>
+                <th>Team</th>
+              </tr>
+            </thead>
 
-      <div class="table-header-card" role="presentation" aria-hidden="true">
-        <div class="header-cell">Bug Title</div>
-        <div class="header-cell">Commit</div>
-        <div class="header-cell">Status</div>
-        <div class="header-cell header-right">Team</div>
+            <tbody id="bugsBody">
+              <!-- static examples -->
+              <tr>
+                <td class="title-cell">Crash when opening settings</td>
+                <td class="commit-cell">
+                  <a class="commit-link" href="#" target="_blank" rel="noopener"
+                    >abcdef</a
+                  >
+                </td>
+                <td class="status-cell">
+                  <span class="status-badge status-open">Open</span>
+                </td>
+                <td class="team-cell">Frontend</td>
+              </tr>
+              <tr>
+                <td class="title-cell">UI overlap on small screens</td>
+                <td class="commit-cell">
+                  <a class="commit-link" href="#" target="_blank" rel="noopener"
+                    >123456</a
+                  >
+                </td>
+                <td class="status-cell">
+                  <span class="status-badge status-in-progress"
+                    >In Progress</span
+                  >
+                </td>
+                <td class="team-cell">UI/UX</td>
+              </tr>
+              <tr>
+                <td class="title-cell">Typo in welcome message</td>
+                <td class="commit-cell">
+                  <a class="commit-link" href="#" target="_blank" rel="noopener"
+                    >987654</a
+                  >
+                </td>
+                <td class="status-cell">
+                  <span class="status-badge status-resolved">Resolved</span>
+                </td>
+                <td class="team-cell">Docs</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="pagination" id="paginationWrap" aria-label="Pagination">
+            <button id="prevBtn" class="btn">&lt; Prev</button>
+            <span id="pageInfo" class="page-info">Page 1</span>
+            <button id="nextBtn" class="btn">Next &gt;</button>
+          </div>
+        </main>
       </div>
-
-      <main class="container content-area" role="main">
-        <table class="bugs-table" role="table" aria-label="Bugs list">
-          <thead class="visually-hidden">
-            <tr>
-              <th>Bug Title</th><th>Commit</th><th>Status</th><th>Team</th>
-            </tr>
-          </thead>
-
-          <tbody id="bugsBody">
-            <!-- static examples -->
-            <tr>
-              <td class="title-cell">Crash when opening settings</td>
-              <td class="commit-cell"><a class="commit-link" href="#" target="_blank" rel="noopener">abcdef</a></td>
-              <td class="status-cell"><span class="status-badge status-open">Open</span></td>
-              <td class="team-cell">Frontend</td>
-            </tr>
-            <tr>
-              <td class="title-cell">UI overlap on small screens</td>
-              <td class="commit-cell"><a class="commit-link" href="#" target="_blank" rel="noopener">123456</a></td>
-              <td class="status-cell"><span class="status-badge status-in-progress">In Progress</span></td>
-              <td class="team-cell">UI/UX</td>
-            </tr>
-            <tr>
-              <td class="title-cell">Typo in welcome message</td>
-              <td class="commit-cell"><a class="commit-link" href="#" target="_blank" rel="noopener">987654</a></td>
-              <td class="status-cell"><span class="status-badge status-resolved">Resolved</span></td>
-              <td class="team-cell">Docs</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="pagination" id="paginationWrap" aria-label="Pagination">
-          <button id="prevBtn" class="btn">&lt; Prev</button>
-          <span id="pageInfo" class="page-info">Page 1</span>
-          <button id="nextBtn" class="btn">Next &gt;</button>
-        </div>
-      </main>
     </div>
-  </div>
-</body>
+  </body>
 </html>
