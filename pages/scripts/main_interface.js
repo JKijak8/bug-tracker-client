@@ -142,3 +142,11 @@ async function handleFormSubmit(e) {
         alert("Failed to save bug. Check console.");
     }
 }
+
+function renderTable(bugs) {
+    dom.tableBody.innerHTML = '';
+    if (bugs.length === 0) {
+        dom.tableBody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px; color: rgba(255,255,255,0.3);">No bugs found.</td></tr>`;
+        return;
+    }
+}
