@@ -178,3 +178,13 @@ function updatePaginationUI(pageData) {
 }
 
 let selectedBugData = null;
+
+function selectRow(row, bug) {
+    const prevSelected = dom.tableBody.querySelector('.selected-row');
+    if (prevSelected) prevSelected.classList.remove('selected-row');
+    
+    row.classList.add('selected-row');
+    state.selectedBugId = bug.id;
+    selectedBugData = bug; // store all bug data for editing
+    dom.editBtn.disabled = false;
+}
