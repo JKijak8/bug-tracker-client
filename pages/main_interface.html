@@ -5,21 +5,26 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Bug Tracker — Main</title>
 
-    <!-- Optional theme (keeps consistency). If missing, fallback variables will apply. -->
     <link rel="stylesheet" href="./styles/form.css" />
-
+    <link rel="stylesheet" href="./styles/sidebar.css" />
     <link rel="stylesheet" href="./styles/main_interface.css" />
+  
   </head>
   <body>
     <div class="app-layout">
       <aside class="sidebar" aria-label="Primary navigation">
-        <div class="nav-top">Navigation</div>
+        <div class="nav-top">BugTracker</div>
+
         <nav class="nav-links" aria-label="Sidebar links">
-          <a class="nav-link" href="#">Dashboard</a>
-          <a class="nav-link" href="#">Projects</a>
-          <a class="nav-link" href="#">Teams</a>
-          <a class="nav-link" href="#">Settings</a>
+          <a class="nav-link active" href="#" id="nav-dashboard">Dashboard</a>
+          <a class="nav-link" href="#" id ="nav-projects">Projects</a>
+          <a class="nav-link" href="#" id="nav-teams">Teams</a>
+          <a class="nav-link" href="#" id="nav-settings">Settings</a>
         </nav>
+
+        <div class="user-section">
+            <span id="currentUserDisplay">Loading user...</span>
+        </div>
       </aside>
 
       <div class="main-area">
@@ -32,84 +37,41 @@
               class="team-dropdown"
               aria-label="Select team"
             >
-              <option value="">All teams</option>
+              <option value="">Loading teams...</option>
             </select>
           </div>
 
           <div class="top-right">
+            <button id="createBugBtn" style="background-color: #2ecc71;">+ New Bug</button>
             <button id="logoutBtn" class="btn logout-btn">Logout</button>
           </div>
         </header>
-        <div class="spacer"></div>
-
-        <div class="table-header-card" role="presentation" aria-hidden="true">
-          <div class="header-cell">Bug Title</div>
-          <div class="header-cell">Commit</div>
-          <div class="header-cell">Status</div>
-          <div class="header-cell header-right">Team</div>
-        </div>
-
-        <main class="container content-area" role="main">
-          <table class="bugs-table" role="table" aria-label="Bugs list">
-            <thead class="visually-hidden">
+<main class="content-area">
+          <table class="bugs-table">
+            <thead>
               <tr>
-                <th>Bug Title</th>
+                <th>Title</th>
                 <th>Commit</th>
                 <th>Status</th>
-                <th>Team</th>
-              </tr>
+                <th>Priority</th> <th>Team</th>
+                <th style="text-align: right;">Actions</th> </tr>
             </thead>
-
-            <tbody id="bugsBody">
-              <!-- static examples -->
+            <tbody id="bugsTableBody">
               <tr>
-                <td class="title-cell">Crash when opening settings</td>
-                <td class="commit-cell">
-                  <a class="commit-link" href="#" target="_blank" rel="noopener"
-                    >abcdef</a
-                  >
-                </td>
-                <td class="status-cell">
-                  <span class="status-badge status-open">Open</span>
-                </td>
-                <td class="team-cell">Frontend</td>
-              </tr>
-              <tr>
-                <td class="title-cell">UI overlap on small screens</td>
-                <td class="commit-cell">
-                  <a class="commit-link" href="#" target="_blank" rel="noopener"
-                    >123456</a
-                  >
-                </td>
-                <td class="status-cell">
-                  <span class="status-badge status-in-progress"
-                    >In Progress</span
-                  >
-                </td>
-                <td class="team-cell">UI/UX</td>
-              </tr>
-              <tr>
-                <td class="title-cell">Typo in welcome message</td>
-                <td class="commit-cell">
-                  <a class="commit-link" href="#" target="_blank" rel="noopener"
-                    >987654</a
-                  >
-                </td>
-                <td class="status-cell">
-                  <span class="status-badge status-resolved">Resolved</span>
-                </td>
-                <td class="team-cell">Docs</td>
+                  <td colspan="6" style="text-align: center; color: var(--text-color);">Loading bugs...</td>
               </tr>
             </tbody>
           </table>
 
-          <div class="pagination" id="paginationWrap" aria-label="Pagination">
-            <button id="prevBtn" class="btn">&lt; Prev</button>
+            <div class="pagination" id="paginationWrap" aria-label="Pagination">
+            <button id="prevBtn" class="btn" disabled>&lt; Prev</button>
             <span id="pageInfo" class="page-info">Page 1</span>
-            <button id="nextBtn" class="btn">Next &gt;</button>
+            <button id="nextBtn" class="btn" disabled>Next &gt;</button>
           </div>
         </main>
       </div>
     </div>
+
+    <script src="./scripts/main_interface.js" defer></script>
   </body>
 </html>
