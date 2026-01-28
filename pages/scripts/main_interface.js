@@ -176,3 +176,5 @@ function updatePaginationUI(pageData) {
     dom.prevBtn.disabled = pageData.first;
     dom.nextBtn.disabled = pageData.last;
 }
+
+let selectedBugData = null
