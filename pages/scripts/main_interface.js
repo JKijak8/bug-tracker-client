@@ -149,4 +149,23 @@ function renderTable(bugs) {
         dom.tableBody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px; color: rgba(255,255,255,0.3);">No bugs found.</td></tr>`;
         return;
     }
+
+    bugs.forEach(bug => {
+        const tr = document.createElement('tr');
+        tr.dataset.id = bug.id;
+        tr.addEventListener('click', () => selectRow(tr, bug)); // sending full bug object
+
+        const priorityClass = `priority-${bug.priority.toLowerCase()}`;
+        const statusClass = bug.resolved ? 'status-resolved' : 'status-open';
+        
+        tr.innerHTML = `
+            <td class="title-cell"><div style="font-weight:500;">${bug.title}</div></td>
+            <td>${bug.commitHash ? bug.commitHash.substring(0, 7) : '—'}</td>
+            <td><span class="status-badge ${statusClass}">${bug.resolved ? 'Resolved' : 'Open'}</span></td>
+            <td><span class="${priorityClass}">${bug.priority}</span></td>
+            <td>${bug.team.name}</td>
+            <td style="text-align: right;"><i class='bx bx-edit-alt'></i></td>
+        `;
+        dom.tableBody.appendChild(tr);
+    });
 }
