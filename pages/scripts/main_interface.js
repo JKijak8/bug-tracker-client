@@ -82,3 +82,23 @@ async function loadBugs() {
     renderTable(pageData.content);
     updatePaginationUI(pageData);
 }
+
+function openModal(mode, bugData = null) {
+    dom.modal.classList.add('active');
+    
+    if (mode === 'create') {
+        dom.modalTitle.textContent = "New Bug";
+        dom.bugForm.reset();
+        dom.bugIdField.value = "";
+    
+        if(state.currentTeamId) dom.bugTeam.value = state.currentTeamId;
+    } else if (mode === 'edit' && bugData) {
+        dom.modalTitle.textContent = "Edit Bug";
+        dom.bugIdField.value = bugData.id;
+        dom.bugTitle.value = bugData.title;
+        dom.bugTeam.value = bugData.team.id;
+        dom.bugPriority.value = bugData.priority;
+        dom.bugDesc.value = bugData.description || "";
+        dom.bugResolved.checked = bugData.resolved;
+    }
+}
