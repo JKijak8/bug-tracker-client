@@ -177,4 +177,4 @@ function updatePaginationUI(pageData) {
     dom.nextBtn.disabled = pageData.last;
 }
 
-let selectedBugData = null
+let selectedBugData = null;
