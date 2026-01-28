@@ -196,3 +196,30 @@ function deselectRow() {
     const prevSelected = dom.tableBody.querySelector('.selected-row');
     if (prevSelected) prevSelected.classList.remove('selected-row');
 }
+
+function setupEventListeners() {
+    dom.teamDropdown.addEventListener('change', (e) => {
+        state.currentTeamId = e.target.value;
+        state.currentPage = 0;
+        loadBugs();
+    });
+
+    dom.prevBtn.addEventListener('click', () => {
+        if (state.currentPage > 0) { state.currentPage--; loadBugs(); }
+    });
+    dom.nextBtn.addEventListener('click', () => {
+        if (state.currentPage < state.totalPages - 1) { state.currentPage++; loadBugs(); }
+    });
+
+    dom.createBtn.addEventListener('click', () => openModal('create'));
+    dom.editBtn.addEventListener('click', () => {
+        if (selectedBugData) openModal('edit', selectedBugData);
+    });
+    dom.cancelModalBtn.addEventListener('click', closeModal);
+    dom.bugForm.addEventListener('submit', handleFormSubmit);
+
+    dom.logoutBtn.addEventListener('click', async () => {
+        await window.auth.logout();
+        window.location.href = './login.html';
+    });
+}
