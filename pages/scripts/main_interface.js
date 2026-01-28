@@ -67,3 +67,18 @@ async function loadTeams() {
         dom.bugTeam.appendChild(modalOpt);
     });
 }
+
+async function loadBugs() {
+    deselectRow();
+    let url = `${API_URL}/bug/list?page=${state.currentPage}&size=10`;
+    if (state.currentTeamId) {
+        url += `&teamIds=${state.currentTeamId}`;
+    }
+
+    const pageData = await authenticatedFetch(url);
+    if (!pageData) return;
+
+    state.totalPages = pageData.totalPages;
+    renderTable(pageData.content);
+    updatePaginationUI(pageData);
+}
