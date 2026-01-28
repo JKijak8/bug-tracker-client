@@ -123,6 +123,10 @@ html, body {
   outline-offset: -1px;
 }
 
+.bugs-table tbody tr {
+  cursor: pointer;
+}
+
 .commit-link { color: var(--button-color); text-decoration:none; font-family: monospace; }
 .commit-link:hover { text-decoration: underline; }
 
