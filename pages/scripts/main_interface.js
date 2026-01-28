@@ -169,3 +169,10 @@ function renderTable(bugs) {
         dom.tableBody.appendChild(tr);
     });
 }
+
+function updatePaginationUI(pageData) {
+    const currentDisplay = pageData.totalElements === 0 ? 0 : state.currentPage + 1;
+    dom.pageInfo.textContent = `Page ${currentDisplay} of ${pageData.totalPages}`;
+    dom.prevBtn.disabled = pageData.first;
+    dom.nextBtn.disabled = pageData.last;
+}
