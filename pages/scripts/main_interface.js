@@ -44,3 +44,26 @@ async function loadUserInfo() {
         console.error("Retrieving user failed", e);
     }
 }
+
+async function loadTeams() {
+    const teams = await authenticatedFetch(`${API_URL}/team/all`);
+    if (!teams) return;
+
+    dom.teamDropdown.innerHTML = '<option value="">All teams</option>';
+    // !!future modal dropdown!!
+    dom.bugTeam.innerHTML = '';
+
+    teams.forEach(team => {
+    
+        const opt = document.createElement('option');
+        opt.value = team.id;
+        opt.textContent = team.name;
+        dom.teamDropdown.appendChild(opt);
+
+        // !!future modal select!!
+        const modalOpt = document.createElement('option');
+        modalOpt.value = team.id;
+        modalOpt.textContent = team.name;
+        dom.bugTeam.appendChild(modalOpt);
+    });
+}
