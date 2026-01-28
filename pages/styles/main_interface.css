@@ -133,8 +133,6 @@ html, body {
   filter: grayscale(1);
 }
 
-
-
 .commit-link { color: var(--button-color); text-decoration:none; font-family: monospace; }
 .commit-link:hover { text-decoration: underline; }
 
