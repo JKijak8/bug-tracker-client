@@ -1,12 +1,16 @@
+:root {
+
+    --sidebar-padding: 20px;
+}
+
+
 .sidebar {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  
   background: transparent;
   border-right: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 20px;
-  
+  padding: var(--sidebar-padding);
   display: flex;
   flex-direction: column;
   gap: 20px; 
@@ -14,7 +18,7 @@
 
 .nav-top {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #fff;
   margin-bottom: 10px;
 }
@@ -29,11 +33,11 @@
 .nav-link {
   text-decoration: none;
   color: var(--text-color);
-  padding: 10px;
+  padding: 10px 12px;
   border-radius: 8px;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
   font-weight: 500;
-  display: flex;
+  display: block;
   align-items: center;
   gap: 10px;
 }
@@ -48,4 +52,39 @@
     padding-top: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
     font-size: 0.9rem;
+    color: var(--muted, rgba(255,255,255,0.5));
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    gap: 0;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    flex-grow: 0;
+    gap: 15px;
+  }
+
+  .user-section {
+    padding-top: 0;
+    border-top: none;
+    margin-top: 0;
+  }
+  
+  .nav-top {
+      margin-bottom: 0;
+      margin-right: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+    .nav-links { display: none; }
 }
