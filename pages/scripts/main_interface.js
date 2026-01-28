@@ -106,3 +106,7 @@ function openModal(mode, bugData = null) {
 function closeModal() {
     dom.modal.classList.remove('active');
 }
+
+async function handleFormSubmit(e) {
+    e.preventDefault();
+}
