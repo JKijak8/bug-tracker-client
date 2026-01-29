@@ -108,6 +108,7 @@ function openModal(mode, bugData = null) {
         state.originalCreatorId = null;
 
         if(dom.bugSteps) dom.bugSteps.value = "";
+        if(dom.bugCommit) dom.bugCommit.value = "";
         if(dom.bugCommitUrl) dom.bugCommitUrl.value = "";
     
         if(state.currentTeamId) dom.bugTeam.value = state.currentTeamId;
