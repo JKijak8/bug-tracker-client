@@ -146,7 +146,7 @@ async function handleFormSubmit(e) {
 
     if (result) {
         closeModal();
-        loadBugs(); // refreshing the table
+        loadBugs();
     } else {
         alert("Failed to save bug. Check console.");
     }
