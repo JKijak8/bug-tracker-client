@@ -22,6 +22,13 @@ const dom = {
     modalTitle: document.getElementById('modalTitle'),
     bugForm: document.getElementById('bugForm'),
     cancelModalBtn: document.getElementById('cancelModalBtn'),
+
+    bugIdField: document.getElementById('bugIdField'),
+    bugTitle: document.getElementById('bugTitle'),
+    bugTeam: document.getElementById('bugTeam'),
+    bugPriority: document.getElementById('bugPriority'),
+    bugDesc: document.getElementById('bugDescription'),
+    bugResolved: document.getElementById('bugResolved')
 };
 -
 document.addEventListener('DOMContentLoaded', async () => {
