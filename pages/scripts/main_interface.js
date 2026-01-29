@@ -30,7 +30,7 @@ const dom = {
     bugDesc: document.getElementById('bugDescription'),
     bugResolved: document.getElementById('bugResolved')
 };
--
+
 document.addEventListener('DOMContentLoaded', async () => {
     const tokenCheck = await window.auth.getAccessToken();
     if (!tokenCheck.success) {
