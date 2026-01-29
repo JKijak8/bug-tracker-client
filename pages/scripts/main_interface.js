@@ -3,7 +3,8 @@ let state = {
     currentPage: 0,
     totalPages: 0,
     currentTeamId: "", // empty means all teams
-    selectedBugId: null
+    selectedBugId: null,
+    currentUserId: null
 };
 
 const dom = {
