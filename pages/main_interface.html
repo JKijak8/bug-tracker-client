@@ -76,7 +76,7 @@
     </div>
 <div id="bugModal" class="modal-overlay">
   <div class="modal-window">
-    <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px; color: #fff;">New Bug</h2>
+    <h2 id="modalTitle" style="text-align: center; margin-bottom: 30px; color: #fff;">New Bug</h2>
     
     <form id="bugForm">
       <input type="hidden" id="bugIdField">
@@ -86,16 +86,14 @@
         <input type="text" id="bugTitle" required placeholder="Short summary" maxlength="255">
       </div>
 
-      <div style="display: flex; gap: 15px;"></div>
-      <div class="text-input" style="flex: 1;">
+      <div class="text-input">
         <label for="bugTeam">Team</label>
-        <select id="bugTeam" required class="modal-input" style="width: 100%;">
-           </select>
+        <select id="bugTeam" required></select>
       </div>
 
-      <div class="text-input" style="width: 120px;">
+      <div class="text-input">
         <label for="bugPriority">Priority</label>
-        <select id="bugPriority" class="modal-input" style="width: 100%;">
+        <select id="bugPriority">
           <option value="LOW">Low</option>
           <option value="MEDIUM" selected>Medium</option>
           <option value="HIGH">High</option>
@@ -105,12 +103,12 @@
 
       <div class="text-input">
         <label for="bugDescription">Description</label>
-        <textarea id="bugDescription" class="modal-input" placeholder="General description of the issue..." style="height: 60px; resize: none; padding-top: 10px; width: 100%;"></textarea>
+        <textarea id="bugDescription" placeholder="What happened?"></textarea>
       </div>
 
       <div class="text-input">
         <label for="bugSteps">Steps to reproduce</label>
-        <textarea id="bugSteps" class="modal-input" placeholder="1. Go to page X&#10;2. Click button Y..." style="height: 80px; resize: none; padding-top: 10px; width: 100%;"></textarea>
+        <textarea id="bugSteps" placeholder="1. Go to... 2. Click..."></textarea>
       </div>
 
       <div class="text-input">
@@ -123,14 +121,14 @@
         <input type="url" id="bugCommitUrl" placeholder="https://github.com/..." style="width: 100%;">
       </div>
       
-      <div class="checkbox" style="margin-top: 10px;">
+      <div class="checkbox" style="margin-top: 5px;">
         <input type="checkbox" id="bugResolved">
-        <label for="bugResolved">Mark as Resolved</label>
+        <label for="bugResolved" style="color: var(--text-color);">Mark as Resolved</label>
       </div>
 
-      <div style="display: flex; justify-content: space-between; margin-top: 25px;">
-        <button type="button" id="cancelModalBtn" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.3);">Cancel</button>
+      <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 25px;">
         <button type="submit" class="btn">Save Bug</button>
+        <button type="button" id="cancelModalBtn" class="btn" style="background: transparent; border: 1px solid rgba(255,255,255,0.3);">Cancel</button>
       </div>
     </form>
   </div>
