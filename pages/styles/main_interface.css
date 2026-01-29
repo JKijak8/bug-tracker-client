@@ -199,3 +199,7 @@ html, body {
   justify-content: center;
   align-items: center;
 }
+
+.modal-overlay.active {
+  display: flex;
+}
