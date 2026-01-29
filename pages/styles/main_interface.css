@@ -198,6 +198,7 @@ html, body {
   z-index: 9999;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .modal-overlay.active {
@@ -209,33 +210,50 @@ html, body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 30px;
   border-radius: 12px;
-  width: 400px;
+  width: 600px;
+  max-width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
   box-shadow: 0 15px 50px rgba(0,0,0,0.5);
 }
 
-.modal-input {
-  width: 300px;
-  height: 40px;
-  border: none;
-  border-radius: 2px;
-  padding: 0 10px;
-  font-family: "Roboto", Arial, sans-serif;
-  font-size: 13.33px;
+.modal-window::-webkit-scrollbar { width: 6px; }
+.modal-window::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
-.modal-input:focus {
+.full-width {
+  grid-column: span 2;
+}
+
+.modal-window select, 
+.modal-window textarea {
+  width: 100%;
+  background-color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.modal-window textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.modal-window select:focus, 
+.modal-window textarea:focus,
+.modal-window input:focus {
   outline: solid 2px var(--button-color);
   outline-offset: -3px;
 }
 
-#bugForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-#bugDescription {
-  font-family: inherit;
-  width: 300px;
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .full-width { grid-column: span 1; }
 }
