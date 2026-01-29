@@ -157,7 +157,7 @@ async function handleFormSubmit(e) {
     let method = 'POST';
 
     if (isEdit) {
-        url += `?bugId=${bugId}`; // BugController: updateBug(@RequestParam Long bugId...)
+        url += `?bugId=${bugId}`;
         method = 'PUT';
     }
 
