@@ -100,15 +100,25 @@ function openModal(mode, bugData = null) {
         dom.modalTitle.textContent = "New Bug";
         dom.bugForm.reset();
         dom.bugIdField.value = "";
+        state.originalCreatorId = null;
+
+        if(dom.bugSteps) dom.bugSteps.value = "";
+        if(dom.bugCommitUrl) dom.bugCommitUrl.value = "";
     
         if(state.currentTeamId) dom.bugTeam.value = state.currentTeamId;
     } else if (mode === 'edit' && bugData) {
         dom.modalTitle.textContent = "Edit Bug";
         dom.bugIdField.value = bugData.id;
+
+        state.originalCreatorId = bugData.creator ? bugData.creator.id : state.currentUserId;
+
         dom.bugTitle.value = bugData.title;
         dom.bugTeam.value = bugData.team.id;
         dom.bugPriority.value = bugData.priority;
         dom.bugDesc.value = bugData.description || "";
+        dom.bugSteps.value = bugData.stepsToReproduce || ""; 
+        dom.bugCommit.value = bugData.commitHash || "";
+        dom.bugCommitUrl.value = bugData.commitUrl || "";
         dom.bugResolved.checked = bugData.resolved;
     }
 }
