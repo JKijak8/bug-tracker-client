@@ -72,7 +72,51 @@
         </main>
       </div>
     </div>
+<div id="bugModal" class="modal-overlay">
+  <div class="modal-window">
+    <h2 id="modalTitle" style="text-align: center; margin-bottom: 20px; color: #fff;">New Bug</h2>
+    
+    <form id="bugForm">
+      <input type="hidden" id="bugIdField">
 
+      <div class="text-input">
+        <label for="bugTitle">Title</label>
+        <input type="text" id="bugTitle" required placeholder="Short summary">
+      </div>
+
+      <div class="text-input">
+        <label for="bugTeam">Team</label>
+        <select id="bugTeam" required class="modal-input">
+           </select>
+      </div>
+
+      <div class="text-input">
+        <label for="bugPriority">Priority</label>
+        <select id="bugPriority" class="modal-input">
+          <option value="LOW">Low</option>
+          <option value="MEDIUM" selected>Medium</option>
+          <option value="HIGH">High</option>
+          <option value="CRITICAL">Critical</option>
+        </select>
+      </div>
+
+      <div class="text-input">
+        <label for="bugDescription">Description</label>
+        <textarea id="bugDescription" class="modal-input" placeholder="Steps to reproduce..." style="height: 100px; resize: none; padding-top: 10px;"></textarea>
+      </div>
+      
+      <div class="checkbox" style="margin-top: 10px;">
+        <input type="checkbox" id="bugResolved">
+        <label for="bugResolved">Mark as Resolved</label>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 25px;">
+        <button type="button" id="cancelModalBtn" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.3);">Cancel</button>
+        <button type="submit" class="btn">Save Bug</button>
+      </div>
+    </form>
+  </div>
+</div>
     <script src="./scripts/main_interface.js" defer></script>
   </body>
 </html>
