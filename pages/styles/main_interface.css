@@ -227,3 +227,15 @@ html, body {
   outline: solid 2px var(--button-color);
   outline-offset: -3px;
 }
+
+#bugForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#bugDescription {
+  font-family: inherit;
+  width: 300px;
+}
