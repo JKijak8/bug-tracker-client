@@ -93,9 +93,9 @@
            </select>
       </div>
 
-      <div class="text-input">
+      <div class="text-input" style="width: 120px;">
         <label for="bugPriority">Priority</label>
-        <select id="bugPriority" class="modal-input">
+        <select id="bugPriority" class="modal-input" style="width: 100%;">
           <option value="LOW">Low</option>
           <option value="MEDIUM" selected>Medium</option>
           <option value="HIGH">High</option>
@@ -105,7 +105,22 @@
 
       <div class="text-input">
         <label for="bugDescription">Description</label>
-        <textarea id="bugDescription" class="modal-input" placeholder="Steps to reproduce..." style="height: 100px; resize: none; padding-top: 10px;"></textarea>
+        <textarea id="bugDescription" class="modal-input" placeholder="General description of the issue..." style="height: 60px; resize: none; padding-top: 10px; width: 100%;"></textarea>
+      </div>
+
+      <div class="text-input">
+        <label for="bugSteps">Steps to reproduce</label>
+        <textarea id="bugSteps" class="modal-input" placeholder="1. Go to page X&#10;2. Click button Y..." style="height: 80px; resize: none; padding-top: 10px; width: 100%;"></textarea>
+      </div>
+
+      <div class="text-input">
+        <label for="bugCommit">Commit Hash (Optional)</label>
+        <input type="text" id="bugCommit" placeholder="e.g. 8f2a1b9" maxlength="100">
+      </div>
+      
+      <div class="text-input">
+        <label for="bugCommitUrl">Commit URL (Optional)</label>
+        <input type="url" id="bugCommitUrl" placeholder="https://github.com/..." style="width: 100%;">
       </div>
       
       <div class="checkbox" style="margin-top: 10px;">
