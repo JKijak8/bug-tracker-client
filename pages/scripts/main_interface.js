@@ -29,6 +29,11 @@ const dom = {
     bugTeam: document.getElementById('bugTeam'),
     bugPriority: document.getElementById('bugPriority'),
     bugDesc: document.getElementById('bugDescription'),
+    
+    bugSteps: document.getElementById('bugSteps'),
+    bugCommit: document.getElementById('bugCommit'),
+    bugCommitUrl: document.getElementById('bugCommitUrl'),
+
     bugResolved: document.getElementById('bugResolved')
 };
 
