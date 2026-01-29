@@ -16,7 +16,12 @@ const dom = {
     createBtn: document.getElementById('createBugBtn'),
     editBtn: document.getElementById('editBugBtn'),
     logoutBtn: document.getElementById('logoutBtn'),
-    userDisplay: document.getElementById('currentUserDisplay')
+    userDisplay: document.getElementById('currentUserDisplay'),
+
+    modal: document.getElementById('bugModal'),
+    modalTitle: document.getElementById('modalTitle'),
+    bugForm: document.getElementById('bugForm'),
+    cancelModalBtn: document.getElementById('cancelModalBtn'),
 };
 -
 document.addEventListener('DOMContentLoaded', async () => {
