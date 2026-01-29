@@ -140,8 +140,11 @@ async function handleFormSubmit(e) {
         title: dom.bugTitle.value,
         description: dom.bugDesc.value,
         priority: dom.bugPriority.value,
+        stepsToReproduce: dom.bugSteps.value,
+        commitHash: dom.bugCommit.value,
+        commitUrl: dom.bugCommitUrl.value,
         resolved: dom.bugResolved.checked,
-        creator: state.currentUserId
+        creator: creatorId
     };
 
     let url = `${API_URL}/bug`;
