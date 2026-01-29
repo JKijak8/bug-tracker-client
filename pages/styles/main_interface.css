@@ -222,3 +222,8 @@ html, body {
   font-family: "Roboto", Arial, sans-serif;
   font-size: 13.33px;
 }
+
+.modal-input:focus {
+  outline: solid 2px var(--button-color);
+  outline-offset: -3px;
+}
