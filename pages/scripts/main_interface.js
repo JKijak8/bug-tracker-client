@@ -4,7 +4,8 @@ let state = {
     totalPages: 0,
     currentTeamId: "", // empty means all teams
     selectedBugId: null,
-    currentUserId: null
+    currentUserId: null,
+    originalCreatorId: null
 };
 
 const dom = {
