@@ -38,7 +38,7 @@ login.addEventListener("submit", async (e) => {
 });
 
 async function loading() {
-  const nextPage = "./placeholder.html";
+  const nextPage = "./main_interface.html";
   loadingOverlay.style.display = "flex";
 
   if (await checkLogin()) {
