@@ -228,6 +228,7 @@ function setupEventListeners() {
     dom.bugForm.addEventListener('submit', handleFormSubmit);
 
     dom.logoutBtn.addEventListener('click', async () => {
+        window.auth.setRememberMe(false);
         await window.auth.logout();
         window.location.href = './login.html';
     });
