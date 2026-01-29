@@ -61,7 +61,6 @@ async function loadTeams() {
     if (!teams) return;
 
     dom.teamDropdown.innerHTML = '<option value="">All teams</option>';
-    // !!future modal dropdown!!
     dom.bugTeam.innerHTML = '';
 
     teams.forEach(team => {
@@ -71,7 +70,6 @@ async function loadTeams() {
         opt.textContent = team.name;
         dom.teamDropdown.appendChild(opt);
 
-        // !!future modal select!!
         const modalOpt = document.createElement('option');
         modalOpt.value = team.id;
         modalOpt.textContent = team.name;
