@@ -133,6 +133,8 @@ async function handleFormSubmit(e) {
     const bugId = dom.bugIdField.value;
     const isEdit = !!bugId;
 
+    const creatorId = isEdit ? state.originalCreatorId : state.currentUserId;
+
     const payload = {
         team: parseInt(dom.bugTeam.value),
         title: dom.bugTitle.value,
