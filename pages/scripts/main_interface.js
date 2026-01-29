@@ -39,11 +39,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     await loadUserInfo();
-
     await loadTeams();
-
     await loadBugs();
-
     setupEventListeners();
 });
 
