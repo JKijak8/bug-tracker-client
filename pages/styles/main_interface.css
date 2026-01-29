@@ -212,3 +212,13 @@ html, body {
   width: 400px;
   box-shadow: 0 15px 50px rgba(0,0,0,0.5);
 }
+
+.modal-input {
+  width: 300px;
+  height: 40px;
+  border: none;
+  border-radius: 2px;
+  padding: 0 10px;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 13.33px;
+}
