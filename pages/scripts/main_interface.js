@@ -49,6 +49,7 @@ async function loadUserInfo() {
         const data = await authenticatedFetch(`${API_URL}/user`);
         if (data) {
             dom.userDisplay.textContent = data.username;
+            state.currentUserId = data.id;
         }
     } catch (e) {
         console.error("User fetch error", e);
