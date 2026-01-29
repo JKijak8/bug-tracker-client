@@ -184,7 +184,7 @@ function renderTable(bugs) {
     bugs.forEach(bug => {
         const tr = document.createElement('tr');
         tr.dataset.id = bug.id;
-        tr.addEventListener('click', () => selectRow(tr, bug)); // sending full bug object
+        tr.addEventListener('click', () => selectRow(tr, bug));
 
         const priorityClass = `priority-${bug.priority.toLowerCase()}`;
         const statusClass = bug.resolved ? 'status-resolved' : 'status-open';
@@ -216,7 +216,7 @@ function selectRow(row, bug) {
     
     row.classList.add('selected-row');
     state.selectedBugId = bug.id;
-    selectedBugData = bug; // store all bug data for editing
+    selectedBugData = bug;
     dom.editBtn.disabled = false;
 }
 
