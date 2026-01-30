@@ -301,6 +301,13 @@ function setupEventListeners() {
         dom.detailsModal.classList.remove('active');
     });
 
+    dom.openEditFromDetailsBtn.addEventListener('click', () => {
+        dom.detailsModal.classList.remove('active');
+        if (state.selectedBugData) {
+            openModal('edit', state.selectedBugData);
+        }
+    });
+
     dom.logoutBtn.addEventListener('click', async () => {
         window.auth.setRememberMe(false);
         await window.auth.logout();
