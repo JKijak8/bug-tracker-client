@@ -136,6 +136,17 @@ function openDetailsView(bug){
     dom.detSteps.textContent = bug.stepsToReproduce || "No steps provided.";
 
     dom.detCommit.textContent = bug.commitHash || "-";
+
+    if (bug.commitUrl) {
+        dom.detLink.href = bug.commitUrl;
+        dom.detLink.textContent = bug.commitUrl;
+        dom.detLink.style.display = 'inline';
+    } else {
+        dom.detLink.textContent = "No link provided";
+        dom.detLink.removeAttribute('href');
+    }
+    
+    dom.detailsModal.classList.add('active');
 }
 
 function openModal(mode, bugData = null) {
