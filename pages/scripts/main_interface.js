@@ -245,7 +245,7 @@ function renderTable(bugs) {
             <td><span class="status-badge ${statusClass}">${bug.resolved ? 'Resolved' : 'Open'}</span></td>
             <td><span class="${priorityClass}">${bug.priority}</span></td>
             <td>${bug.team.name}</td>
-            <td style="text-align: right;"><i class='bx bx-edit-alt'></i></td>
+            <td style="text-align: right;"><i class='bx bx-show'></i></td>
         `;
         dom.tableBody.appendChild(tr);
     });
