@@ -260,3 +260,20 @@ html, body {
 }
 
 /* --- DETAILS MODAL STYLES --- */
+
+.details-window {
+  width: 800px;
+  max-width: 95%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
