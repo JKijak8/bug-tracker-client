@@ -22,7 +22,18 @@ const dom = {
     detailsModal: document.getElementById('detailsModal'),
     closeDetailsBtn: document.getElementById('closeDetailsBtn'),
     openEditFromDetailsBtn: document.getElementById('openEditFromDetailsBtn'),
-    
+
+    detId: document.getElementById('detailId'),
+    detTitle: document.getElementById('detailTitle'),
+    detStatus: document.getElementById('detailStatusBadge'),
+    detCreator: document.getElementById('detailCreator'),
+    detDate: document.getElementById('detailDate'),
+    detTeam: document.getElementById('detailTeam'),
+    detPriority: document.getElementById('detailPriority'),
+    detDesc: document.getElementById('detailDesc'),
+    detSteps: document.getElementById('detailSteps'),
+    detCommit: document.getElementById('detailCommit'),
+    detLink: document.getElementById('detailLink'),
     
     
     modal: document.getElementById('bugModal'),
