@@ -259,26 +259,6 @@ function updatePaginationUI(pageData) {
     dom.nextBtn.disabled = pageData.last;
 }
 
-let selectedBugData = null;
-
-function selectRow(row, bug) {
-    const prevSelected = dom.tableBody.querySelector('.selected-row');
-    if (prevSelected) prevSelected.classList.remove('selected-row');
-    
-    row.classList.add('selected-row');
-    state.selectedBugId = bug.id;
-    selectedBugData = bug;
-    dom.editBtn.disabled = false;
-}
-
-function deselectRow() {
-    state.selectedBugId = null;
-    selectedBugData = null;
-    dom.editBtn.disabled = true;
-    const prevSelected = dom.tableBody.querySelector('.selected-row');
-    if (prevSelected) prevSelected.classList.remove('selected-row');
-}
-
 function setupEventListeners() {
     dom.teamDropdown.addEventListener('change', (e) => {
         state.currentTeamId = e.target.value;
