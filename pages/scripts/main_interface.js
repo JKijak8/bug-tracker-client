@@ -4,6 +4,7 @@ let state = {
     totalPages: 0,
     currentTeamId: "", // empty means all teams
     selectedBugId: null,
+    selectedBugData: null,
     currentUserId: null,
     originalCreatorId: null
 };
