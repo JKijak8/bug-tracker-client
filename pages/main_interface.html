@@ -164,8 +164,31 @@
           <label>Description</label>
           <p id="detailDesc" class="detail-text">No description provided.</p>
         </div>
+        <div class="detail-section">
+          <label>Steps to Reproduce</label>
+          <div id="detailSteps" class="detail-block">No steps provided.</div>
+        </div>
+      </div>
 
+      <div class="details-sidebar">
+        <div class="detail-section">
+          <label>Commit Hash</label>
+          <div id="detailCommit" class="code-box">-</div>
+        </div>
 
+        <div class="detail-section">
+          <label>Commit URL</label>
+          <a id="detailLink" href="#" target="_blank" class="detail-link">No link</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-actions">
+      <button id="closeDetailsBtn" class="btn btn-secondary">Close</button>
+      <button id="openEditFromDetailsBtn" class="btn">Edit Bug</button>
+    </div>
+  </div>
+</div>
     <script src="./scripts/main_interface.js" defer></script>
   </body>
 </html>
