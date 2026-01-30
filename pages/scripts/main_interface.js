@@ -234,7 +234,7 @@ function renderTable(bugs) {
     bugs.forEach(bug => {
         const tr = document.createElement('tr');
         tr.dataset.id = bug.id;
-        tr.addEventListener('click', () => selectRow(tr, bug));
+        tr.addEventListener('click', () => openDetailsView(bug));
 
         const priorityClass = `priority-${bug.priority.toLowerCase()}`;
         const statusClass = bug.resolved ? 'status-resolved' : 'status-open';
