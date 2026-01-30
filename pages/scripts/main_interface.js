@@ -145,7 +145,7 @@ function openDetailsView(bug){
         dom.detLink.textContent = "No link provided";
         dom.detLink.removeAttribute('href');
     }
-    
+
     dom.detailsModal.classList.add('active');
 }
 
@@ -294,9 +294,6 @@ function setupEventListeners() {
     });
 
     dom.createBtn.addEventListener('click', () => openModal('create'));
-    dom.editBtn.addEventListener('click', () => {
-        if (selectedBugData) openModal('edit', selectedBugData);
-    });
     dom.cancelModalBtn.addEventListener('click', closeModal);
     dom.bugForm.addEventListener('submit', handleFormSubmit);
 
