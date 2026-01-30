@@ -21,7 +21,7 @@ const dom = {
     
     detailsModal: document.getElementById('detailsModal'),
     closeDetailsBtn: document.getElementById('closeDetailsBtn'),
-    openEditFromDetailsBtn: document.getElementById('openEditFromDetailsBtn'),
+    openEditFromDetailsBtn: document.getElementById('editFromDetailsBtn'),
 
     detId: document.getElementById('detailId'),
     detTitle: document.getElementById('detailTitle'),

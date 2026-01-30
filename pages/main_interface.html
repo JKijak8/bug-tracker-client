@@ -135,57 +135,85 @@
 
 <div id="detailsModal" class="modal-overlay">
   <div class="modal-window details-window">
+    
     <div class="details-header">
-      <div style="flex: 1;">
-        <span id="detailId" class="detail-id">#ID</span>
-        <h2 id="detailTitle">Bug Title Placeholder</h2>
+      <div class="details-title-group">
+        <span id="detDisplayId" class="details-id">#ID</span>
+        <h2 id="detDisplayTitle">Bug Title Placeholder</h2>
       </div>
-      <div id="detailStatusBadge" class="status-badge status-open">OPEN</div>
-    </div>
-    <div class="details-meta-bar">
-      <div class="meta-item">
-        <i class='bx bx-user'></i> <span id="detailCreator">Loading...</span>
-      </div>
-      <div class="meta-item">
-        <i class='bx bx-calendar'></i> <span id="detailDate">Loading...</span>
-      </div>
-      <div class="meta-item">
-        <i class='bx bx-group'></i> <span id="detailTeam">Loading...</span>
-      </div>
-      <div class="meta-item">
-        <i class='bx bx-error'></i> <span id="detailPriority" style="font-weight: bold;">MEDIUM</span>
-      </div>
+      <div id="detDisplayStatus" class="status-badge status-open">OPEN</div>
     </div>
 
-    <div class="details-content-grid">
+    <div class="details-body">
       
-      <div class="details-main">
+      <div>
         <div class="detail-section">
-          <label>Description</label>
-          <p id="detailDesc" class="detail-text">No description provided.</p>
+          <div class="detail-label">Description</div>
+          <div id="detDisplayDesc" class="detail-content-box">No description.</div>
         </div>
+
         <div class="detail-section">
-          <label>Steps to Reproduce</label>
-          <div id="detailSteps" class="detail-block">No steps provided.</div>
+          <div class="detail-label">Steps to Reproduce</div>
+          <div id="detDisplaySteps" class="detail-content-box">No steps provided.</div>
         </div>
       </div>
 
-      <div class="details-sidebar">
-        <div class="detail-section">
-          <label>Commit Hash</label>
-          <div id="detailCommit" class="code-box">-</div>
+      <div>
+        <div class="detail-label">Meta Info</div>
+        <div class="meta-panel">
+          <div class="meta-row">
+            <i class='bx bx-user'></i>
+            <div>
+              <small style="display:block; opacity:0.5;">Creator</small>
+              <span id="detDisplayCreator">User</span>
+            </div>
+          </div>
+          
+          <div class="meta-row">
+            <i class='bx bx-group'></i>
+            <div>
+              <small style="display:block; opacity:0.5;">Team</small>
+              <span id="detDisplayTeam">Team Name</span>
+            </div>
+          </div>
+
+          <div class="meta-row">
+            <i class='bx bx-tachometer'></i>
+            <div>
+              <small style="display:block; opacity:0.5;">Priority</small>
+              <span id="detDisplayPriority">MEDIUM</span>
+            </div>
+          </div>
+          
+           <div class="meta-row">
+            <i class='bx bx-calendar'></i>
+            <div>
+              <small style="display:block; opacity:0.5;">Discovered</small>
+              <span id="detDisplayDate">Date</span>
+            </div>
+          </div>
         </div>
 
-        <div class="detail-section">
-          <label>Commit URL</label>
-          <a id="detailLink" href="#" target="_blank" class="detail-link">No link</a>
+        <div class="detail-section" style="margin-top: 25px;">
+          <div class="detail-label">Commit Info</div>
+          <div class="meta-panel" style="padding: 15px;">
+            <div style="margin-bottom: 10px;">
+                <span style="opacity:0.5;">Hash: </span>
+                <span id="detDisplayCommit" class="commit-hash">-</span>
+            </div>
+            <div>
+                <span style="opacity:0.5;">URL: </span>
+                <a id="detDisplayUrl" href="#" target="_blank" class="commit-link">No link</a>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
 
-    <div class="details-actions">
-      <button id="closeDetailsBtn" class="btn btn-secondary">Close</button>
-      <button id="openEditFromDetailsBtn" class="btn">Edit Bug</button>
+    <div class="details-footer">
+      <button id="closeDetailsBtn" class="btn btn-secondary" style="border: 1px solid rgba(255,255,255,0.2); background: transparent;">Close</button>
+      <button id="editFromDetailsBtn" class="btn">Edit Bug</button>
     </div>
   </div>
 </div>
