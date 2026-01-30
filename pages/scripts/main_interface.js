@@ -115,6 +115,10 @@ async function loadBugs() {
     updatePaginationUI(pageData);
 }
 
+function openDetailsView(bug){
+    
+}
+
 function openModal(mode, bugData = null) {
     dom.modal.classList.add('active');
     
