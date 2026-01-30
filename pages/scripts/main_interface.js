@@ -297,6 +297,10 @@ function setupEventListeners() {
     dom.cancelModalBtn.addEventListener('click', closeModal);
     dom.bugForm.addEventListener('submit', handleFormSubmit);
 
+    dom.closeDetailsBtn.addEventListener('click', () => {
+        dom.detailsModal.classList.remove('active');
+    });
+
     dom.logoutBtn.addEventListener('click', async () => {
         window.auth.setRememberMe(false);
         await window.auth.logout();
