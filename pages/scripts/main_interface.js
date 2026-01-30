@@ -15,7 +15,6 @@ const dom = {
     nextBtn: document.getElementById('nextBtn'),
     pageInfo: document.getElementById('pageInfo'),
     createBtn: document.getElementById('createBugBtn'),
-    editBtn: document.getElementById('editBugBtn'),
     logoutBtn: document.getElementById('logoutBtn'),
     userDisplay: document.getElementById('currentUserDisplay'),
 
