@@ -117,6 +117,25 @@ async function loadBugs() {
 
 function openDetailsView(bug){
     
+    state.selectedBugData = bug;
+
+    dom.detId.textContent = `#${bug.id}`;
+    dom.detTitle.textContent = bug.title;
+    
+    dom.detStatus.textContent = bug.resolved ? "RESOLVED" : "OPEN";
+    dom.detStatus.className = `status-badge ${bug.resolved ? 'status-resolved' : 'status-open'}`;
+
+    dom.detCreator.textContent = bug.creator ? bug.creator.username : "Unknown"; 
+    dom.detTeam.textContent = bug.team ? bug.team.name : "No Team";
+    dom.detPriority.textContent = bug.priority;
+    
+    const date = new Date(bug.discoveredAt || bug.createdAt);
+    dom.detDate.textContent = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+
+    dom.detDesc.textContent = bug.description || "No description provided.";
+    dom.detSteps.textContent = bug.stepsToReproduce || "No steps provided.";
+
+    dom.detCommit.textContent = bug.commitHash || "-";
 }
 
 function openModal(mode, bugData = null) {
