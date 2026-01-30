@@ -101,7 +101,6 @@ async function loadTeams() {
 }
 
 async function loadBugs() {
-    deselectRow();
     let url = `${API_URL}/bug/list?page=${state.currentPage}&size=10`;
     if (state.currentTeamId) {
         url += `&teamIds=${state.currentTeamId}`;
