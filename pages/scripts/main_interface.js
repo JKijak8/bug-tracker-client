@@ -18,6 +18,13 @@ const dom = {
     logoutBtn: document.getElementById('logoutBtn'),
     userDisplay: document.getElementById('currentUserDisplay'),
 
+    
+    detailsModal: document.getElementById('detailsModal'),
+    closeDetailsBtn: document.getElementById('closeDetailsBtn'),
+    openEditFromDetailsBtn: document.getElementById('openEditFromDetailsBtn'),
+    
+    
+    
     modal: document.getElementById('bugModal'),
     modalTitle: document.getElementById('modalTitle'),
     bugForm: document.getElementById('bugForm'),
