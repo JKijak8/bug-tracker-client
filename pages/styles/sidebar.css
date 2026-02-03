@@ -55,6 +55,32 @@
     color: var(--muted, rgba(255,255,255,0.5));
 }
 
+.sidebar-logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 75, 75, 0.3);
+  color: #ff6b6b;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.sidebar-logout-btn:hover {
+  background: rgba(255, 75, 75, 0.1);
+  border-color: #ff6b6b;
+}
+
+.sidebar-logout-btn i {
+  font-size: 1.1rem;
+}
+
 @media (max-width: 900px) {
   .sidebar {
     height: auto;
