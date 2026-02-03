@@ -23,7 +23,14 @@
         </nav>
 
         <div class="user-section">
-            <span id="currentUserDisplay">Loading user...</span>
+          <div class="user-info-group">
+            <small style="display:block; opacity: 0.5; font-size: 0.75rem; margin-bottom: 4px;">Logged in as:</small>
+            <span id="currentUserDisplay"style="font-weight: 500; font-size: 0.95rem; display: block; margin-bottom: 12px;">Loading...</span>
+        </div>
+
+        <button id="logoutBtn" class="sidebar-logout-btn">
+                <i class='bx bx-log-out'></i> Logout
+            </button>
         </div>
       </aside>
 
