@@ -296,6 +296,19 @@ function setupEventListeners() {
         await window.auth.logout();
         window.location.href = './login.html';
     });
+
+    if (dom.refreshBtn) {
+        dom.refreshBtn.addEventListener('click', async () => {
+            const icon = dom.refreshBtn.querySelector('i');
+            if (icon) icon.classList.add('spin-anim');
+            
+            await loadTeams();
+            await loadBugs();
+            if (icon) {
+                setTimeout(() => icon.classList.remove('spin-anim'), 500);
+            }
+        });
+    }
 }
 
 async function authenticatedFetch(url, options = {}) {
