@@ -426,3 +426,18 @@ html, body {
   transition: all 0.2s ease;
   margin-right: 10px;
 }
+
+
+.btn-icon i {
+  font-size: 1.4rem;
+}
+
+.btn-icon:hover {
+  border-color: #fff;
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+}
+
+.btn-icon:active {
+  transform: scale(0.95);
+}
