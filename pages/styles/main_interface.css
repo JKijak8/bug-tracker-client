@@ -441,3 +441,6 @@ html, body {
 .btn-icon:active {
   transform: scale(0.95);
 }
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.spin-anim { animation: spin 0.8s linear infinite; }
