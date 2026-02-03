@@ -128,8 +128,10 @@ function openDetailsView(bug){
 
     dom.detCreator.textContent = bug.creator ? bug.creator.username : "Unknown"; 
     dom.detTeam.textContent = bug.team ? bug.team.name : "No Team";
-    dom.detPriority.textContent = bug.priority;
     
+    dom.detPriority.textContent = bug.priority;
+    dom.detPriority.className = `priority-${bug.priority.toLowerCase()}`;
+
     const date = new Date(bug.discoveredAt || bug.createdAt);
     dom.detDate.textContent = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
 
