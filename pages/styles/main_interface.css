@@ -446,7 +446,6 @@ html, body {
 .spin-anim { animation: spin 0.8s linear infinite; }
 
 /* ---PRIORITY COLORS (BADGES) --- */
-
 [class^="priority-"] {
   padding: 4px 8px;
   border-radius: 4px;
