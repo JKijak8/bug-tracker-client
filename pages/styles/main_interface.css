@@ -455,3 +455,28 @@ html, body {
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
+
+.priority-low {
+  background-color: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.priority-medium {
+  background-color: rgba(241, 196, 15, 0.15);
+  color: #f1c40f;
+  border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+.priority-high {
+  background-color: rgba(230, 126, 34, 0.15);
+  color: #e67e22;
+  border: 1px solid rgba(230, 126, 34, 0.3);
+}
+
+.priority-critical {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.4);
+  box-shadow: 0 0 10px rgba(231, 76, 60, 0.1);
+}
