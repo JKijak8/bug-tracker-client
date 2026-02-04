@@ -1,8 +1,6 @@
 :root {
-
-    --sidebar-padding: 20px;
+  --sidebar-padding: 20px;
 }
-
 
 .sidebar {
   height: 100%;
@@ -13,7 +11,7 @@
   padding: var(--sidebar-padding);
   display: flex;
   flex-direction: column;
-  gap: 20px; 
+  gap: 20px;
 }
 
 .nav-top {
@@ -27,7 +25,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .nav-link {
@@ -35,24 +33,27 @@
   color: var(--text-color);
   padding: 10px 12px;
   border-radius: 8px;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   font-weight: 500;
   display: block;
   align-items: center;
   gap: 10px;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
   background: rgba(255, 255, 255, 0.05);
   color: #fff;
 }
 
 .user-section {
-    margin-top: auto;
-    padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    font-size: 0.9rem;
-    color: var(--muted, rgba(255,255,255,0.5));
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 0.9rem;
+  color: var(--muted, rgba(255, 255, 255, 0.5));
 }
 
 .sidebar-logout-btn {
@@ -85,7 +86,7 @@
   .sidebar {
     height: auto;
     border-right: none;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -104,13 +105,15 @@
     border-top: none;
     margin-top: 0;
   }
-  
+
   .nav-top {
-      margin-bottom: 0;
-      margin-right: 15px;
+    margin-bottom: 0;
+    margin-right: 15px;
   }
 }
 
 @media (max-width: 600px) {
-    .nav-links { display: none; }
+  .nav-links {
+    display: none;
+  }
 }

@@ -25,3 +25,15 @@ h1 {
 .settings-btn {
   font-size: 1.3rem;
 }
+
+#button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  gap: 8px;
+}
+
+#passwordModal .text-input {
+  width: auto;
+}

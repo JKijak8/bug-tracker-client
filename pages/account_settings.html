@@ -74,6 +74,61 @@
         </main>
       </div>
     </div>
-    </aside>
+    <div id="deleteModal" class="modal-overlay">
+      <div class="modal-window">
+        <h2
+          style="text-align: center; margin-bottom: 30px; color: #fff"
+        >
+        Are you sure you want to delete your account?
+        </h2>
+          <div id="button-container">
+            <button id="confirmDeleteBtn" class="btn">Yes</button>
+            <button
+              type="button"
+              id="cancelModalBtn"
+              class="btn"
+              style="
+                background: transparent;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+              "
+            >
+              No
+            </button>
+          </div>
+      </div>
+    </div>
+
+    <div id="passwordModal" class="modal-overlay">
+      <div class="modal-window">
+        <h2
+          style="text-align: center; margin-bottom: 30px; color: #fff"
+        >
+        Change password
+        </h2>
+          <form novalidate>
+            <div class="text-input">
+              <label for="old-password">Old password</label>
+              <input type="password" id="old-password" />
+              <span class="error"></span>
+            </div>
+            <div class="text-input">
+              <label for="password">New password</label>
+              <input type="password" id="password" />
+              <span class="error"></span>
+            </div>
+            <div class="text-input">
+              <label for="repeat-password">Repeat new password</label>
+              <input type="password" id="repeat-password" />
+              <span class="error"></span>
+            </div>
+            <button type="submit" class="btn" id="confirm-change">Change password</button>
+            <button type="button" class="btn" id="cancelPasswordModal" style="
+                background: transparent;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+              ">Cancel</button>
+            <span id="message"></span>
+          </form>
+      </div>
+    </div>
   </body>
 </html>
