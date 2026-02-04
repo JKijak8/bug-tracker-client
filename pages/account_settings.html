@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Settings</title>
+    <link rel="stylesheet" href="./styles/sidebar.css" />
+    <link rel="stylesheet" href="./styles/main_interface.css">
+    <link rel="stylesheet" href="./styles/account_settings.css">
+    <link rel="stylesheet" href="./styles/form.css">
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <script src="./scripts/account_settings.js" defer></script>
+  </head>
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="nav-top">BugTracker</div>
+
+        <nav class="nav-links" aria-label="Sidebar links">
+          <a class="nav-link" href="./main_interface.html" id="nav-dashboard">Dashboard</a>
+          <a class="nav-link" href="#" id="nav-teams">Teams</a>
+          <a
+            class="nav-link active"
+            href="#"
+            id="nav-account-settings"
+            >Account Settings</a
+          >
+        </nav>
+
+        <div class="user-section">
+          <div class="user-info-group">
+            <small
+              style="
+                display: block;
+                opacity: 0.5;
+                font-size: 0.75rem;
+                margin-bottom: 4px;
+              "
+              >Logged in as:</small
+            >
+            <span
+              id="currentUserDisplay"
+              style="
+                font-weight: 500;
+                font-size: 0.95rem;
+                display: block;
+                margin-bottom: 12px;
+              "
+              >Loading...</span
+            >
+          </div>
+
+          <button id="logoutBtn" class="sidebar-logout-btn">
+            <i class="bx bx-log-out"></i> Logout
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar" role="banner">
+          <div class="top-left"></div>
+
+          <div class="top-center">
+            <h1>Account Settings</h1>
+          </div>
+
+          <div class="top-right"></div>
+        </header>
+        <main class="content-area">
+          <button id="delete-acc" class="settings-btn">Delete Account</button>
+          <button id="change-password" class="settings-btn">Change Password</button>
+        </main>
+      </div>
+    </div>
+    </aside>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+h1 {
+  font-size: 1.5rem;
+}
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: calc(0.5rem + 1vh);
+}
+
+#delete-acc {
+  background: transparent;
+  border: 1px solid rgba(255, 75, 75, 0.3);
+  color: #ff6b6b;
+  transition: all 0.2s ease;
+}
+
+#delete-acc:hover {
+  background: rgba(255, 75, 75, 0.1);
+  border-color: #ff6b6b;
+}
+
+.settings-btn {
+  font-size: 1.3rem;
+}
