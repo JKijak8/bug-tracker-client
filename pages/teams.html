@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Bug Tracker - Teams</title>
+
+    <link rel="stylesheet" href="./styles/form.css" />
+    <link rel="stylesheet" href="./styles/sidebar.css" />
+    <link rel="stylesheet" href="./styles/main_interface.css" />
+    <link rel="stylesheet" href="./styles/teams.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <script src="./scripts/teams.js" defer></script>
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="nav-top">BugTracker</div>
+
+        <nav class="nav-links" aria-label="Sidebar links">
+          <a class="nav-link" href="./main_interface.html" id="nav-dashboard"
+            >Dashboard</a
+          >
+          <a class="nav-link active" href="#" id="nav-teams">Teams</a>
+          <a
+            class="nav-link"
+            href="./account_settings.html"
+            id="nav-account-settings"
+            >Account Settings</a
+          >
+        </nav>
+
+        <div class="user-section">
+          <div class="user-info-group">
+            <small
+              style="
+                display: block;
+                opacity: 0.5;
+                font-size: 0.75rem;
+                margin-bottom: 4px;
+              "
+              >Logged in as:</small
+            >
+            <span
+              id="currentUserDisplay"
+              style="
+                font-weight: 500;
+                font-size: 0.95rem;
+                display: block;
+                margin-bottom: 12px;
+              "
+              >Loading...</span
+            >
+          </div>
+
+          <button id="logoutBtn" class="sidebar-logout-btn">
+            <i class="bx bx-log-out"></i> Logout
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar" role="banner">
+          <div class="top-left"></div>
+
+          <div class="top-center">
+            <h1>Teams</h1>
+          </div>
+
+          <div class="top-right">
+            <button id="createTeamBtn" style="background-color: #2ecc71">
+              New Team
+            </button>
+            <button id="refreshBtn" class="btn-icon" title="Refresh">
+              <i class="bx bx-refresh"></i>
+            </button>
+          </div>
+        </header>
+        <main class="content-area">
+          <table class="teams-table">
+            <thead>
+              <tr>
+                <th>Team</th>
+                <th style="text-align: right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="teamsTableBody">
+              <tr>
+                <td
+                  colspan="6"
+                  style="text-align: center; color: var(--text-color)"
+                >
+                  Loading teams...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="pagination" id="paginationWrap" aria-label="Pagination">
+            <button id="prevBtn" class="btn" disabled>&lt; Prev</button>
+            <span id="pageInfo" class="page-info">Page 1</span>
+            <button id="nextBtn" class="btn" disabled>Next &gt;</button>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

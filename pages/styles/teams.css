@@ -1,0 +1,51 @@
+h1 {
+  font-size: 1.5rem;
+}
+
+.teams-table {
+  border-collapse: collapse;
+  width: calc(100% - 30vw);
+  margin-top: 6px;
+  margin-left: 15vw;
+  margin-right: 15vw;
+}
+
+.teams-table th {
+  text-align: left;
+  padding: 12px 14px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.teams-table td {
+  padding: 12px 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  color: var(--text-color);
+}
+
+.teams-table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.01);
+}
+.teams-table tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.teams-table tr.selected-row {
+  background-color: rgba(77, 150, 247, 0.1) !important;
+  outline: 1px solid var(--button-color);
+  outline-offset: -1px;
+}
+
+.teams-table tbody tr {
+  cursor: pointer;
+}
+
+.owned-badge {
+  color: rgba(255, 255, 255, 0.35);
+  margin-left: 1rem;
+  padding: 5px 15px;
+  border-radius: 15px;
+  border: solid rgba(255, 255, 255, 0.35) 1px;
+}
