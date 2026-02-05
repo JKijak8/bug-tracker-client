@@ -524,3 +524,27 @@ body {
   border: 1px solid rgba(231, 76, 60, 0.4);
   box-shadow: 0 0 10px rgba(231, 76, 60, 0.1);
 }
+
+
+/* ACTION BUTTONS IN TABLE*/
+.action-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+    margin-left: 5px;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.delete-btn:hover {
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1);
+}

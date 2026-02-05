@@ -113,6 +113,24 @@ async function loadBugs() {
   updatePaginationUI(pageData);
 }
 
+async function handleDeleteBug(bugId, event) {
+    event.stopPropagation();
+
+    if (!confirm("Are you sure you want to delete this bug? This action cannot be undone.")) {
+        return;
+    }
+
+    const result = await authenticatedFetch(`${API_URL}/bug/${bugId}`, {
+        method: 'DELETE'
+    });
+
+    if (result) {
+        loadBugs();
+    } else {
+        alert("Failed to delete bug. You might not have permission.");
+    }
+}
+
 function openDetailsView(bug) {
   state.selectedBugData = bug;
 
@@ -248,8 +266,20 @@ function renderTable(bugs) {
             <td><span class="status-badge ${statusClass}">${bug.resolved ? "Resolved" : "Open"}</span></td>
             <td><span class="${priorityClass}">${bug.priority}</span></td>
             <td>${bug.team.name}</td>
-            <td style="text-align: right;"><i class='bx bx-show'></i></td>
+            <td style="text-align: right;">
+                <button class="action-btn view-btn" title="View Details"><i class='bx bx-show'></i></button>
+                <button class="action-btn delete-btn" title="Delete Bug"><i class='bx bx-trash'></i></button>
+            </td>
         `;
+
+    const deleteBtn = tr.querySelector('.delete-btn');
+    deleteBtn.addEventListener('click', (e) => handleDeleteBug(bug.id, e));
+
+    const viewBtn = tr.querySelector('.view-btn');
+    viewBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openDetailsView(bug);
+    });
     dom.tableBody.appendChild(tr);
   });
 }
