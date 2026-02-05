@@ -129,7 +129,8 @@ function openDeleteModal(bugId, event) {
 async function confirmDeleteAction() {
     if (!state.pendingDeleteBugId) return;
 
-    const result = await authenticatedFetch(`${API_URL}/bug/${state.pendingDeleteBugId}`, {
+    const result = await authenticatedFetch(
+    `${API_URL}/bug?bugId=${state.pendingDeleteBugId}`, {
         method: 'DELETE'
     });
 
