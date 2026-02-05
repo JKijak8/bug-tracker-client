@@ -7,6 +7,9 @@ let state = {
   selectedBugData: null,
   currentUserId: null,
   originalCreatorId: null,
+
+  pendingDeleteBugId: null
+
 };
 
 const dom = {
@@ -52,6 +55,10 @@ const dom = {
   bugCommitUrl: document.getElementById("bugCommitUrl"),
 
   bugResolved: document.getElementById("bugResolved"),
+
+  deleteModal: document.getElementById("deleteModal"),
+  cancelDeleteModalBtn: document.getElementById("cancelDeleteBtn"), 
+  confirmDeleteBtn: document.getElementById("confirmDeleteBtn")
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -111,6 +118,29 @@ async function loadBugs() {
   state.totalPages = pageData.totalPages;
   renderTable(pageData.content);
   updatePaginationUI(pageData);
+}
+
+function openDeleteModal(bugId, event) {
+    event.stopPropagation(); 
+    state.pendingDeleteBugId = bugId;
+    dom.deleteModal.classList.add("active");
+}
+
+async function confirmDeleteAction() {
+    if (!state.pendingDeleteBugId) return;
+
+    const result = await authenticatedFetch(`${API_URL}/bug/${state.pendingDeleteBugId}`, {
+        method: 'DELETE'
+    });
+
+    if (result) {
+        dom.deleteModal.classList.remove("active");
+        state.pendingDeleteBugId = null;
+        loadBugs();
+    } else {
+        alert("Failed to delete bug (Check Backend Config for DELETE/CSRF).");
+        dom.deleteModal.classList.remove("active");
+    }
 }
 
 async function handleDeleteBug(bugId, event) {
@@ -273,7 +303,7 @@ function renderTable(bugs) {
         `;
 
     const deleteBtn = tr.querySelector('.delete-btn');
-    deleteBtn.addEventListener('click', (e) => handleDeleteBug(bug.id, e));
+    deleteBtn.addEventListener('click', (e) => openDeleteModal(bug.id, e));
 
     const viewBtn = tr.querySelector('.view-btn');
     viewBtn.addEventListener('click', (e) => {
@@ -345,7 +375,19 @@ function setupEventListeners() {
       }
     });
   }
+
+  if (dom.confirmDeleteBtn) {
+    dom.confirmDeleteBtn.addEventListener("click", confirmDeleteAction);
+  }
+
+  if (dom.cancelDeleteModalBtn) {
+    dom.cancelDeleteModalBtn.addEventListener("click", () => {
+      dom.deleteModal.classList.remove("active");
+      state.pendingDeleteBugId = null;
+    });
+  }
 }
+
 
 async function authenticatedFetch(url, options = {}) {
   const authResult = await window.auth.getAccessToken();
@@ -361,6 +403,7 @@ async function authenticatedFetch(url, options = {}) {
   try {
     const response = await fetch(url, { ...options, headers });
     if (response.status === 401 || response.status === 403) return null;
+    if (response.status === 204) return true;
     if (!response.ok) {
       console.error("API Error:", await response.text());
       return null;

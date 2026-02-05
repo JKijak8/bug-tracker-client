@@ -548,3 +548,10 @@ body {
     color: #e74c3c;
     background: rgba(231, 76, 60, 0.1);
 }
+
+#button-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
