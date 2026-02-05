@@ -3,6 +3,7 @@ let state = {
   currentPage: 0,
   totalPages: 0,
   currentUserId: null,
+  pendingDeleteTeamId: null,
 };
 
 const dom = {
@@ -15,6 +16,10 @@ const dom = {
   userDisplay: document.getElementById("currentUserDisplay"),
 
   tableBody: document.getElementById("teamsTableBody"),
+
+  deleteModal: document.getElementById("deleteModal"),
+  cancelDeleteModalBtn: document.getElementById("cancelDeleteBtn"),
+  confirmDeleteBtn: document.getElementById("confirmDeleteBtn"),
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -48,6 +53,13 @@ async function loadTeams() {
   if (!pageData) return;
 
   state.totalPages = pageData.totalPages;
+
+  if (state.currentPage + 1 > state.totalPages && state.totalPages !== 0) {
+    state.currentPage = state.totalPages - 1;
+    loadTeams();
+    return;
+  }
+
   renderTable(pageData.content);
   updatePaginationUI(pageData);
 }
@@ -73,7 +85,7 @@ function renderTable(teams) {
     tr.addEventListener("click", () => openDetailsView(team));
 
     tr.innerHTML = `
-        <td class="title-cell"><span style="font-weight:500;">${team.title}</span></td>
+        <td class="title-cell"><span style="font-weight:500;">${team.name}</span></td>
         <td class="action-cell" style="text-align: right;">
                 <button class="action-btn view-btn" title="View Details"><i class='bx bx-show'></i></button>
         </td>
@@ -117,15 +129,23 @@ function openDetailsView(team) {
   //TODO: create function definition.
 }
 
+function openDeleteModal(teamId, event) {
+  event.stopPropagation();
+  state.pendingDeleteTeamId = teamId;
+  dom.deleteModal.classList.add("active");
+}
+
 function setupEventListeners() {
   dom.prevBtn.addEventListener("click", () => {
     if (state.currentPage > 0) {
       state.currentPage--;
+      loadTeams();
     }
   });
   dom.nextBtn.addEventListener("click", () => {
     if (state.currentPage < state.totalPages - 1) {
       state.currentPage++;
+      loadTeams();
     }
   });
 
@@ -135,15 +155,42 @@ function setupEventListeners() {
     window.location.href = "./login.html";
   });
 
-  if (dom.refreshBtn) {
-    dom.refreshBtn.addEventListener("click", async () => {
-      const icon = dom.refreshBtn.querySelector("i");
-      if (icon) icon.classList.add("spin-anim");
+  dom.refreshBtn.addEventListener("click", async () => {
+    const icon = dom.refreshBtn.querySelector("i");
+    if (icon) icon.classList.add("spin-anim");
 
-      if (icon) {
-        setTimeout(() => icon.classList.remove("spin-anim"), 500);
-      }
-    });
+    loadTeams();
+
+    if (icon) {
+      setTimeout(() => icon.classList.remove("spin-anim"), 500);
+    }
+  });
+
+  dom.confirmDeleteBtn.addEventListener("click", confirmDeleteAction);
+
+  dom.cancelDeleteModalBtn.addEventListener("click", () => {
+    dom.deleteModal.classList.remove("active");
+    state.pendingDeleteTeamId = null;
+  });
+}
+
+async function confirmDeleteAction() {
+  if (!state.pendingDeleteTeamId) return;
+
+  const result = await authenticatedFetch(
+    `${API_URL}/team?id=${state.pendingDeleteTeamId}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  if (result === 0) {
+    dom.deleteModal.classList.remove("active");
+    state.pendingDeleteTeamId = null;
+    loadTeams();
+  } else {
+    alert("Failed to delete team.");
+    dom.deleteModal.classList.remove("active");
   }
 }
 

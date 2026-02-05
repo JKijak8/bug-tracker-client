@@ -8,8 +8,7 @@ let state = {
   currentUserId: null,
   originalCreatorId: null,
 
-  pendingDeleteBugId: null
-
+  pendingDeleteBugId: null,
 };
 
 const dom = {
@@ -57,8 +56,8 @@ const dom = {
   bugResolved: document.getElementById("bugResolved"),
 
   deleteModal: document.getElementById("deleteModal"),
-  cancelDeleteModalBtn: document.getElementById("cancelDeleteBtn"), 
-  confirmDeleteBtn: document.getElementById("confirmDeleteBtn")
+  cancelDeleteModalBtn: document.getElementById("cancelDeleteBtn"),
+  confirmDeleteBtn: document.getElementById("confirmDeleteBtn"),
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -116,50 +115,63 @@ async function loadBugs() {
   if (!pageData) return;
 
   state.totalPages = pageData.totalPages;
+
+  if (state.currentPage + 1 > state.totalPages && state.totalPages !== 0) {
+    state.currentPage = state.totalPages - 1;
+    loadBugs();
+    return;
+  }
+
   renderTable(pageData.content);
   updatePaginationUI(pageData);
 }
 
 function openDeleteModal(bugId, event) {
-    event.stopPropagation(); 
-    state.pendingDeleteBugId = bugId;
-    dom.deleteModal.classList.add("active");
+  event.stopPropagation();
+  state.pendingDeleteBugId = bugId;
+  dom.deleteModal.classList.add("active");
 }
 
 async function confirmDeleteAction() {
-    if (!state.pendingDeleteBugId) return;
+  if (!state.pendingDeleteBugId) return;
 
-    const result = await authenticatedFetch(
-    `${API_URL}/bug?bugId=${state.pendingDeleteBugId}`, {
-        method: 'DELETE'
-    });
+  const result = await authenticatedFetch(
+    `${API_URL}/bug?bugId=${state.pendingDeleteBugId}`,
+    {
+      method: "DELETE",
+    },
+  );
 
-    if (result) {
-        dom.deleteModal.classList.remove("active");
-        state.pendingDeleteBugId = null;
-        loadBugs();
-    } else {
-        alert("Failed to delete bug (Check Backend Config for DELETE/CSRF).");
-        dom.deleteModal.classList.remove("active");
-    }
+  if (result) {
+    dom.deleteModal.classList.remove("active");
+    state.pendingDeleteBugId = null;
+    loadBugs();
+  } else {
+    alert("Failed to delete bug (Check Backend Config for DELETE/CSRF).");
+    dom.deleteModal.classList.remove("active");
+  }
 }
 
 async function handleDeleteBug(bugId, event) {
-    event.stopPropagation();
+  event.stopPropagation();
 
-    if (!confirm("Are you sure you want to delete this bug? This action cannot be undone.")) {
-        return;
-    }
+  if (
+    !confirm(
+      "Are you sure you want to delete this bug? This action cannot be undone.",
+    )
+  ) {
+    return;
+  }
 
-    const result = await authenticatedFetch(`${API_URL}/bug/${bugId}`, {
-        method: 'DELETE'
-    });
+  const result = await authenticatedFetch(`${API_URL}/bug/${bugId}`, {
+    method: "DELETE",
+  });
 
-    if (result) {
-        loadBugs();
-    } else {
-        alert("Failed to delete bug. You might not have permission.");
-    }
+  if (result) {
+    loadBugs();
+  } else {
+    alert("Failed to delete bug. You might not have permission.");
+  }
 }
 
 function openDetailsView(bug) {
@@ -303,13 +315,13 @@ function renderTable(bugs) {
             </td>
         `;
 
-    const deleteBtn = tr.querySelector('.delete-btn');
-    deleteBtn.addEventListener('click', (e) => openDeleteModal(bug.id, e));
+    const deleteBtn = tr.querySelector(".delete-btn");
+    deleteBtn.addEventListener("click", (e) => openDeleteModal(bug.id, e));
 
-    const viewBtn = tr.querySelector('.view-btn');
-    viewBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          openDetailsView(bug);
+    const viewBtn = tr.querySelector(".view-btn");
+    viewBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openDetailsView(bug);
     });
     dom.tableBody.appendChild(tr);
   });
@@ -388,7 +400,6 @@ function setupEventListeners() {
     });
   }
 }
-
 
 async function authenticatedFetch(url, options = {}) {
   const authResult = await window.auth.getAccessToken();
