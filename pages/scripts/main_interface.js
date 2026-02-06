@@ -329,10 +329,12 @@ function renderTable(bugs) {
 
 function updatePaginationUI(pageData) {
   const currentDisplay =
-    pageData.totalElements === 0 ? 0 : state.currentPage + 1;
+    pageData.page.totalElements === 0 ? 0 : state.currentPage + 1;
   dom.pageInfo.textContent = `Page ${currentDisplay} of ${pageData.page.totalPages}`;
   dom.prevBtn.disabled = pageData.page.number === 0;
-  dom.nextBtn.disabled = pageData.page.number === pageData.page.totalPages - 1;
+  dom.nextBtn.disabled =
+    pageData.page.number === pageData.page.totalPages - 1 ||
+    pageData.page.totalPages === 0;
 }
 
 function setupEventListeners() {
