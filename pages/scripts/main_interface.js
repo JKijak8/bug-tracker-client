@@ -114,7 +114,7 @@ async function loadBugs() {
   const pageData = await authenticatedFetch(url);
   if (!pageData) return;
 
-  state.totalPages = pageData.totalPages;
+  state.totalPages = pageData.page.totalPages;
 
   if (state.currentPage + 1 > state.totalPages && state.totalPages !== 0) {
     state.currentPage = state.totalPages - 1;
@@ -330,9 +330,9 @@ function renderTable(bugs) {
 function updatePaginationUI(pageData) {
   const currentDisplay =
     pageData.totalElements === 0 ? 0 : state.currentPage + 1;
-  dom.pageInfo.textContent = `Page ${currentDisplay} of ${pageData.totalPages}`;
-  dom.prevBtn.disabled = pageData.first;
-  dom.nextBtn.disabled = pageData.last;
+  dom.pageInfo.textContent = `Page ${currentDisplay} of ${pageData.page.totalPages}`;
+  dom.prevBtn.disabled = pageData.page.number === 0;
+  dom.nextBtn.disabled = pageData.page.number === pageData.page.totalPages - 1;
 }
 
 function setupEventListeners() {

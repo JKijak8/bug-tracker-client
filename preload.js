@@ -28,6 +28,10 @@ async function refreshAccessToken() {
   accessTokenExpiresAt = parseDate(data.expiration);
 }
 
+contextBridge.exposeInMainWorld("electronAPI", {
+  showAlert: (message) => ipcRenderer.invoke("dialog:showAlert", message),
+});
+
 contextBridge.exposeInMainWorld("auth", {
   async getAccessToken() {
     if (!accessToken || !isAccessTokenValid()) {

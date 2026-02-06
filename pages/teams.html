@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Bug Tracker - Teams</title>
 
-    <link rel="stylesheet" href="./styles/form.css" />
     <link rel="stylesheet" href="./styles/sidebar.css" />
     <link rel="stylesheet" href="./styles/main_interface.css" />
     <link rel="stylesheet" href="./styles/teams.css" />
+    <link rel="stylesheet" href="./styles/form.css" />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -127,6 +127,113 @@
             No
           </button>
         </div>
+      </div>
+    </div>
+
+    <div id="detailsModal" class="modal-overlay">
+      <div class="modal-window details-window">
+        <div class="details-header">
+          <div id="details-title-group" class="details-title-group">
+            <h2 id="detDisplayTitle">Team Title Placeholder</h2>
+            <div class="text-input" id="changeTitleGroup">
+              <input type="text" id="changeTitleInput" />
+              <button id="changeTitleBtn">Change Title</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="details-body">
+          <div>
+            <div class="detail-label">Members</div>
+            <div id="users-panel" class="detail-content-box">
+              <div id="addMemberContainer" class="text-input"></div>
+              <table class="bugs-table">
+                <thead>
+                  <tr>
+                    <th>E-mail</th>
+                    <th>Username</th>
+                    <th style="text-align: right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="membersTableBody">
+                  <tr>
+                    <td
+                      colspan="6"
+                      style="text-align: center; color: var(--text-color)"
+                    >
+                      Loading members...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <div class="detail-label">Meta Info</div>
+            <div class="meta-panel">
+              <div class="meta-row">
+                <i class="bx bx-user"></i>
+                <div>
+                  <small style="display: block; opacity: 0.5">Owner</small>
+                  <span id="detDisplayCreator">User</span>
+                </div>
+              </div>
+              <div class="meta-row">
+                <i class="bx bx-calendar"></i>
+                <div>
+                  <small style="display: block; opacity: 0.5"
+                    >Creation date</small
+                  >
+                  <span id="detDisplayDate">Date</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="details-footer">
+          <button
+            id="closeDetailsBtn"
+            class="btn btn-secondary"
+            style="
+              border: 1px solid rgba(255, 255, 255, 0.2);
+              background: transparent;
+            "
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="createTeamModal" class="modal-overlay">
+      <div class="modal-window">
+        <h2 style="text-align: center; margin-bottom: 30px; color: #fff">
+          Create a Team
+        </h2>
+        <form novalidate>
+          <div class="text-input">
+            <label for="teamName">Team name</label>
+            <input type="text" id="teamName" />
+          </div>
+          <div class="button-container">
+            <button type="submit" class="btn" id="confirmTeamCreate">
+              Create
+            </button>
+            <button
+              type="button"
+              class="btn"
+              id="cancelTeamModal"
+              style="
+                background: transparent;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+              "
+            >
+              Cancel
+            </button>
+          </div>
+          <span id="message"></span>
+        </form>
       </div>
     </div>
   </body>

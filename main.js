@@ -1,4 +1,4 @@
-import { app, BrowserWindow, session, ipcMain } from "electron/main";
+import { app, BrowserWindow, session, ipcMain, dialog } from "electron/main";
 import { registerAuthIpc } from "./auth/authIpc.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -26,6 +26,16 @@ function createWindow() {
 
 app.whenReady().then(() => {
   registerAuthIpc();
+
+  ipcMain.handle("dialog:showAlert", async (event, message) => {
+    await dialog.showMessageBox({
+      type: "warning",
+      title: "Alert",
+      message: message,
+      buttons: ["OK"],
+    });
+  });
+
   createWindow();
 
   app.on("activate", () => {

@@ -4,6 +4,8 @@ let state = {
   totalPages: 0,
   currentUserId: null,
   pendingDeleteTeamId: null,
+  selectedTeamId: null,
+  editing: false,
 };
 
 const dom = {
@@ -14,12 +16,31 @@ const dom = {
   refreshBtn: document.getElementById("refreshBtn"),
   logoutBtn: document.getElementById("logoutBtn"),
   userDisplay: document.getElementById("currentUserDisplay"),
+  createTeamBtn: document.getElementById("createTeamBtn"),
 
   tableBody: document.getElementById("teamsTableBody"),
 
   deleteModal: document.getElementById("deleteModal"),
   cancelDeleteModalBtn: document.getElementById("cancelDeleteBtn"),
   confirmDeleteBtn: document.getElementById("confirmDeleteBtn"),
+
+  detailsModal: document.getElementById("detailsModal"),
+  detTitle: document.getElementById("detDisplayTitle"),
+  closeDetailsBtn: document.getElementById("closeDetailsBtn"),
+  usersPanel: document.getElementById("users-panel"),
+  membersTableBody: document.getElementById("membersTableBody"),
+  detDisplayCreator: document.getElementById("detDisplayCreator"),
+  detDisplayDate: document.getElementById("detDisplayDate"),
+  addMemberContainer: document.getElementById("addMemberContainer"),
+  detailsTitleGroup: document.getElementById("details-title-group"),
+  changeTitleGroup: document.getElementById("changeTitleGroup"),
+  changeTitleInput: document.getElementById("changeTitleInput"),
+  changeTitleBtn: document.getElementById("changeTitleBtn"),
+
+  createTeamModal: document.getElementById("createTeamModal"),
+  teamName: document.getElementById("teamName"),
+  confirmTeamCreate: document.getElementById("confirmTeamCreate"),
+  cancelTeamModal: document.getElementById("cancelTeamModal"),
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -52,7 +73,7 @@ async function loadTeams() {
   );
   if (!pageData) return;
 
-  state.totalPages = pageData.totalPages;
+  state.totalPages = pageData.page.totalPages;
 
   if (state.currentPage + 1 > state.totalPages && state.totalPages !== 0) {
     state.currentPage = state.totalPages - 1;
@@ -66,10 +87,10 @@ async function loadTeams() {
 
 function updatePaginationUI(pageData) {
   const currentDisplay =
-    pageData.totalElements === 0 ? 0 : state.currentPage + 1;
-  dom.pageInfo.textContent = `Page ${currentDisplay} of ${pageData.totalPages}`;
-  dom.prevBtn.disabled = pageData.first;
-  dom.nextBtn.disabled = pageData.last;
+    pageData.page.totalElements === 0 ? 0 : state.currentPage + 1;
+  dom.pageInfo.textContent = `Page ${currentDisplay} of ${pageData.page.totalPages}`;
+  dom.prevBtn.disabled = pageData.page.number === 0;
+  dom.nextBtn.disabled = pageData.page.number === pageData.page.totalPages - 1;
 }
 
 function renderTable(teams) {
@@ -82,7 +103,7 @@ function renderTable(teams) {
   teams.forEach((team) => {
     const tr = document.createElement("tr");
     tr.dataset.id = team.id;
-    tr.addEventListener("click", () => openDetailsView(team));
+    tr.addEventListener("click", () => openDetailsView(team.id));
 
     tr.innerHTML = `
         <td class="title-cell"><span style="font-weight:500;">${team.name}</span></td>
@@ -105,6 +126,7 @@ function renderTable(teams) {
       const deleteBtn = document.createElement("button");
       deleteBtn.classList.add("action-btn", "delete-btn");
       deleteBtn.title = "Delete Team";
+      deleteBtn.addEventListener("click", (e) => openDeleteModal(team.id, e));
 
       const deleteIcon = document.createElement("i");
       deleteIcon.classList.add("bx", "bx-trash");
@@ -113,20 +135,151 @@ function renderTable(teams) {
       actionCell.appendChild(deleteBtn);
     }
 
-    const deleteBtn = tr.querySelector(".delete-btn");
-    deleteBtn.addEventListener("click", (e) => openDeleteModal(team.id, e));
-
     const viewBtn = tr.querySelector(".view-btn");
     viewBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      openDetailsView(team);
+      openDetailsView(team.id);
     });
     dom.tableBody.appendChild(tr);
   });
 }
 
-function openDetailsView(team) {
-  //TODO: create function definition.
+async function openDetailsView(teamId) {
+  state.selectedTeamId = teamId;
+
+  const team = await authenticatedFetch(`${API_URL}/team?id=${teamId}`);
+
+  dom.detTitle.textContent = team.name;
+
+  dom.membersTableBody.innerHTML = "";
+  dom.addMemberContainer.innerHTML = "";
+  if (dom.detailsTitleGroup.querySelector(".action-btn") !== null) {
+    dom.detailsTitleGroup.querySelector(".action-btn").remove();
+  }
+  if (!state.editing) {
+    dom.changeTitleGroup.style = "display: none";
+  }
+
+  if (team.members.length === 0) {
+    dom.tableBody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 20px; color: rgba(255,255,255,0.3);">No members found.</td></tr>`;
+    return;
+  }
+
+  team.members.forEach((member) => loadMember(team, member));
+
+  detDisplayCreator.textContent = team.owner.username;
+
+  if (team.owner.id === state.currentUserId) {
+    const memberInput = document.createElement("input");
+    memberInput.type = "text";
+    memberInput.id = "memberInput";
+    memberInput.placeholder = "email@example.com";
+    memberInput.addEventListener("input", () => {
+      memberInput.className = "";
+      const response = validateEmail(memberInput.value);
+      if (!response.ok) {
+        memberInput.classList.add("invalid");
+      }
+    });
+
+    const addMemberBtn = document.createElement("button");
+    addMemberBtn.textContent = "Add Member";
+    addMemberBtn.addEventListener("click", async () => {
+      memberInput.className = "";
+      const response = validateEmail(memberInput.value);
+      if (!response.ok) {
+        memberInput.classList.add("invalid");
+        window.electronAPI.showAlert(response.message);
+        return;
+      }
+      const fetchResponse = await authenticatedFetch(
+        `${API_URL}/team/member?teamId=${state.selectedTeamId}&userEmail=${memberInput.value}`,
+        {
+          method: "POST",
+        },
+      );
+      if (fetchResponse === 1) {
+        window.electronAPI.showAlert("Failed to add member.");
+        return;
+      }
+      memberInput.value = "";
+      if (state.selectedTeamId !== null) {
+        openDetailsView(state.selectedTeamId);
+      }
+    });
+
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("action-btn");
+    const icon = document.createElement("i");
+    icon.classList.add("bx", "bx-edit");
+    editBtn.appendChild(icon);
+    editBtn.addEventListener("click", () => {
+      if (!state.editing) {
+        state.editing = true;
+        dom.detTitle.textContent = "";
+        dom.changeTitleGroup.style = "display: flex";
+      } else {
+        state.editing = false;
+        openDetailsView(state.selectedTeamId);
+      }
+    });
+
+    dom.detailsTitleGroup.appendChild(editBtn);
+    dom.addMemberContainer.appendChild(memberInput);
+    dom.addMemberContainer.appendChild(addMemberBtn);
+  }
+
+  const date = new Date(team.createdAt);
+  detDisplayDate.textContent =
+    date.toLocaleDateString() + " " + date.toLocaleTimeString();
+
+  dom.detailsModal.classList.add("active");
+}
+
+function loadMember(team, member) {
+  const tr = document.createElement("tr");
+  tr.dataset.id = member.id;
+
+  tr.innerHTML = `
+        <td class="title-cell"><span style="font-weight:500;">${member.email}</span></td>
+        <td class="title-cell"><span style="font-weight:500;">${member.username}</span></td>
+        <td class="action-cell" style="text-align: right;">
+        </td>
+    `;
+
+  if (team.owner.id === state.currentUserId && team.owner.id !== member.id) {
+    const actionCell = tr.querySelector(".action-cell");
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("action-btn", "delete-btn");
+    deleteBtn.title = "Remove Member";
+    deleteBtn.addEventListener("click", () => removeMember(member.id));
+
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("bx", "bx-trash");
+
+    deleteBtn.appendChild(deleteIcon);
+    actionCell.appendChild(deleteBtn);
+  }
+  dom.membersTableBody.appendChild(tr);
+}
+
+async function removeMember(memberId) {
+  const result = await authenticatedFetch(
+    `${API_URL}/team/member?teamId=${state.selectedTeamId}&userId=${memberId}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  if (result === 1) {
+    alert("Failed to remove member.");
+    return;
+  }
+
+  if (state.selectedTeamId !== null) {
+    openDetailsView(state.selectedTeamId);
+  }
 }
 
 function openDeleteModal(teamId, event) {
@@ -171,6 +324,63 @@ function setupEventListeners() {
   dom.cancelDeleteModalBtn.addEventListener("click", () => {
     dom.deleteModal.classList.remove("active");
     state.pendingDeleteTeamId = null;
+  });
+
+  dom.closeDetailsBtn.addEventListener("click", () => {
+    dom.detailsModal.classList.remove("active");
+    state.editing = false;
+    state.selectedTeamId = null;
+    loadTeams();
+  });
+
+  dom.changeTitleBtn.addEventListener("click", async () => {
+    const result = await authenticatedFetch(
+      `${API_URL}/team?id=${state.selectedTeamId}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          name: dom.changeTitleInput.value,
+        }),
+      },
+    );
+
+    if (result === 1) {
+      window.electronAPI.showAlert("Failed to change title.");
+      return;
+    }
+
+    state.editing = false;
+    dom.changeTitleInput.value = "";
+    openDetailsView(state.selectedTeamId);
+  });
+
+  dom.createTeamBtn.addEventListener("click", () => {
+    dom.createTeamModal.classList.add("active");
+  });
+
+  dom.createTeamModal.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const response = await authenticatedFetch(`${API_URL}/team`, {
+      method: "POST",
+      body: JSON.stringify({
+        name: dom.teamName.value,
+      }),
+    });
+
+    if (response === 1) {
+      window.electronAPI.showAlert("Failed to create team.");
+      return;
+    }
+
+    dom.teamName.value = "";
+    dom.createTeamModal.classList.remove("active");
+    loadTeams();
+  });
+
+  dom.cancelTeamModal.addEventListener("click", () => {
+    dom.createTeamModal.classList.remove("active");
+    dom.teamName.value = "";
   });
 }
 
@@ -218,4 +428,24 @@ async function authenticatedFetch(url, options = {}) {
     console.error("Network Error:", err);
     return 1;
   }
+}
+
+function validateEmail(email) {
+  if (email.length === 0) {
+    return { ok: false, message: "Email is required." };
+  }
+
+  if (
+    !email.match(
+      /(?:[a-z0-9!#$%&'*+\x2f=?^_`\x7b-\x7d~\x2d]+(?:\.[a-z0-9!#$%&'*+\x2f=?^_`\x7b-\x7d~\x2d]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9\x2d]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9\x2d]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9\x2d]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+    )
+  ) {
+    return { ok: false, message: "Email is invalid." };
+  }
+
+  if (email.length > 255) {
+    return { ok: false, message: "Email must be at most 255 characters." };
+  }
+
+  return { ok: true };
 }
