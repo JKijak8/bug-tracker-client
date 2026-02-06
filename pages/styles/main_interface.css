@@ -39,7 +39,7 @@ body {
 .main-area {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
   position: relative;
 }
@@ -96,6 +96,8 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
 }
 
 .bugs-table {
@@ -180,7 +182,8 @@ body {
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-top: 20px;
+  margin-top: auto;
+  padding-top: 20px;
 }
 
 .page-info {
